@@ -7,5 +7,6 @@
 <h2>${message}</h2>
 <h3>${message}</h3>
 <h4>${message}</h4>
+<a href="/bye">Bye</a>
 </body>
 </html>

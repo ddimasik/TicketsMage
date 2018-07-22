@@ -59,8 +59,9 @@
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                     <webAppConfig>
-                        <contextPath>/HelloWeb</contextPath>
-                        <extraClasspath>target/classes</extraClasspath>
+                        <contextPath>/</contextPath> <!-- так тоже работает! (без двух следующий строк) -->
+                        <!--<contextPath>/HelloWeb</contextPath>-->
+                        <!--<extraClasspath>target/classes</extraClasspath>-->
                     </webAppConfig>
                 </configuration>
             </plugin>
