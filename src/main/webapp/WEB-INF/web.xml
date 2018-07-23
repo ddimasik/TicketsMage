@@ -7,29 +7,29 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:/spring/beans-service.xml</param-value>
+        <param-value>classpath:/spring/jpa-service.xml</param-value>
     </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
 
-    <display-name>Spring MVC Application</display-name>
+    <display-name>Stations</display-name>
 
     <servlet>
-        <servlet-name>HelloWeb</servlet-name>
+        <servlet-name>Stations</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <!--<load-on-startup>1</load-on-startup>-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>
-                classpath:/spring/HelloWeb-servlet.xml
+                classpath:/spring/Stations-servlet.xml
             </param-value>
         </init-param>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>HelloWeb</servlet-name>
+        <servlet-name>Stations</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 

@@ -28,12 +28,6 @@
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>org.springframework.web.servlet</artifactId>-->
-            <!--<version>3.2.2.RELEASE</version>-->
-            <!--<scope>runtime</scope>-->
-        <!--</dependency>-->
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -48,6 +42,12 @@
             <version>2.5.0</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
 
         <!-- Spring -->
         <dependency>
@@ -108,9 +108,7 @@
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                     <webAppConfig>
-                        <contextPath>/</contextPath> <!-- так тоже работает! (без двух следующий строк) -->
-                        <!--<contextPath>/HelloWeb</contextPath>-->
-                        <!--<extraClasspath>target/classes</extraClasspath>-->
+                        <contextPath>/</contextPath>
                     </webAppConfig>
                 </configuration>
             </plugin>
