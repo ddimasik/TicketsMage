@@ -12,16 +12,18 @@ import javax.persistence.Id;
 @Entity
 public class Station {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
 
-    public Long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer id;
+
     public String name;
 
     public Station() {
         //Default constructor needed for JPA.
     }
-    public Station(Long id, String name) {
+    public Station(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -29,13 +31,19 @@ public class Station {
     public void setName(String name) {
         this.name = name;
     }
-
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public String getName() {
         return name;
     }
-
-    public Long getId() {
+    public Integer getId() {
         return id;
+    }
+
+    //Check if this is for New of Update
+    public boolean isNew() {
+        return (this.id == null);
     }
 
     @Override

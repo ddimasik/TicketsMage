@@ -2,6 +2,8 @@ package common.service;
 
 import common.model.Station;
 import common.repository.StationRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +19,38 @@ import java.util.List;
 @Component
 public class StationService {
 
+    private final Logger logger = LoggerFactory.getLogger(StationService.class);
+
     @Autowired
     private StationRepository stationRepository;
+
+    public Station findById(Integer id) {
+        return stationRepository.findById(id);
+    }
+
+    public void saveOrUpdate(Station station) {
+
+        if (findById(station.getId())==null) {
+            stationRepository.save(station);
+        } else {
+            update(station);
+        }
+
+    }
+
+    void update(Station station){
+        Station stToSave = new Station();
+
+        stToSave.name = station.getName();
+        logger.debug(stToSave.name);
+        stToSave.id = station.getId();
+        logger.debug(stToSave.id.toString());
+
+        stationRepository.save(stToSave);
+
+
+
+    }
 
     @Transactional
     public void add(Station station) {
@@ -26,8 +58,8 @@ public class StationService {
     }
 
     @Transactional
-    public void removeStation(Long id) {
-        stationRepository.delete(id);
+    public void removeStation(int id) {
+        stationRepository.delete(findById(id));
     }
 
 

@@ -1,11 +1,14 @@
-<web-app id = "WebApp_ID" version = "2.4"
-         xmlns = "http://java.sun.com/xml/ns/j2ee"
-         xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation = "http://java.sun.com/xml/ns/j2ee
-   http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
 
 
-    <context-param>
+    <display-name>Spring3 MVC Application</display-name>
+
+
+<context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:/spring/jpa-service.xml</param-value>
     </context-param>
@@ -32,5 +35,22 @@
         <servlet-name>Stations</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/views/jsp/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/jsp/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>405</error-code>
+        <location>/WEB-INF/views/jsp/error.jsp</location>
+    </error-page>
+    <error-page>
+        <location>/WEB-INF/views/jsp/error.jsp</location>
+    </error-page>
+
 
 </web-app>
