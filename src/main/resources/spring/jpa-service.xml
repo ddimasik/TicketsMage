@@ -27,9 +27,7 @@
 
     <!-- Datasource, that is currently hsqldb (in-memory database). -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <!--<property name="driverClassName" value="org.hsqldb.jdbcDriver" />-->
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-        <!--<property name="url" value="jdbc:hsqldb:mem://productDb" />-->
         <property name="url" value="jdbc:mysql://localhost:3306/mysql?autoReconnect=true&amp;useSSL=false" />
         <property name="username" value="ddimasik" />
         <property name="password" value="1qaz2wsX" />

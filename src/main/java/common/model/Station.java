@@ -5,14 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- *  This is a data structure, so
- *  fields can be public. (Clean-Code)
- */
+
 @Entity
 public class Station {
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
