@@ -14,7 +14,7 @@
         <spring.data.jpa.version>1.7.1.RELEASE</spring.data.jpa.version>
         <hibernate.version>4.1.9.Final</hibernate.version>
 
-        <jdk.version>1.7</jdk.version>
+        <jdk.version>1.8</jdk.version>
         <spring.version>4.1.6.RELEASE</spring.version>
         <hsqldb.version>2.3.2</hsqldb.version>
         <logback.version>1.1.3</logback.version>
@@ -127,6 +127,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--Testing-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
 
 
     </dependencies>
@@ -153,6 +161,14 @@
                         <contextPath>/</contextPath>
                         <!--<contextPath>/spring-mvc-form</contextPath>-->
                     </webAppConfig>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
 
