@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public class TicketsRepository {
 
-    private static final String FIND_ALL_SQL = "SELECT * from tickets_by_hand";
+    private static final String FIND_ALL_SQL = "SELECT * from tickets";
 
     @Autowired
     private NamedParameterJdbcOperations jdbcTemplate;

@@ -3,26 +3,33 @@ package common.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 public class Ticket {
 
     @Getter
     @Setter
-    int Id;
+    int id;
 
     @Getter
     @Setter
-    int Train_id;
+//    Train train;
+    int train_id;
 
     @Getter
     @Setter
-    int Passenger_id;
+    int passenger_id;
 
     @Setter
     @Getter
-    int StartStation_id;
+    int startStation_id;
 
     @Getter
     @Setter
-    int EndStation_id;
+    int endStation_id;
+
+    @Setter
+    @Getter
+    LocalDateTime dateTime;
 
 }

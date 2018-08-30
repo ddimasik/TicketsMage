@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
 	<table>
-		<tr><th>Train</th><th>Passenger</th><th>Start station</th><th>End station</th></tr>
+		<tr><th>Train</th><th>Passenger</th><th>Start station</th><th>End station</th><th>Date time</th></tr>
 
 		<c:forEach var="ticket" items="${tickets}">
 			<tr>
@@ -18,6 +18,9 @@
 				</td>
 				<td>
 						${ticket.endStation_id}
+				</td>
+				<td>
+						${ticket.dateTime}
 				</td>
 			</tr>
 		</c:forEach>
