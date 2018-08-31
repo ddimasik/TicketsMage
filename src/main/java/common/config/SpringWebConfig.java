@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan({ "common.service", "common", "common.validator", "common.exception" })
+//@ComponentScan({ "common.*"})
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
 
     @Override

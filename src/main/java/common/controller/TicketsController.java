@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TicketsController {
 
-    @Autowired
-    private TicketsService ticketsService;
-
-    @GetMapping(path = "/allTickets")
-    public String showAllTickets(Model model) {
-        model.addAttribute("tickets", ticketsService.findAll());
-        return "fragments/allTicketsFragment";
-    }
+//    @Autowired
+//    private TicketsService ticketsService;
+//
+//    @GetMapping(path = "/allTickets")
+//    public String showAllTickets(Model model) {
+//        model.addAttribute("tickets", ticketsService.findAll());
+//        return "fragments/allTicketsFragment";
+//    }
 }

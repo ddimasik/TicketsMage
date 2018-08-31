@@ -1,48 +1,47 @@
 package common.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+@Entity
+@Table(name = "trains")
 public class Train {
-    int Id;
-    int Capacity;
-    Map<Station, LocalDateTime> route;
 
-    public int getId() {
-        return Id;
-    }
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
+    @Getter
+    int id;
 
-    public void setId(int id) {
-        Id = id;
-    }
+    @Column(name = "capacity")
+    @Setter
+    @Getter
+    int capacity;
 
-    public int getCapacity() {
-        return Capacity;
-    }
+    @Column(name = "name")
+    @Setter
+    @Getter
+    String name;
 
-    public void setCapacity(int capacity) {
-        Capacity = capacity;
-    }
 
-    public Map<Station, LocalDateTime> getRoute() {
-        return route;
-    }
+    @Column(name = "valenki")
+    @Setter
+    @Getter
+    String valenki;
 
-    public void setRoute(Map<Station, LocalDateTime> route) {
-        this.route = route;
-    }
 
-    void showTimeTable(){
 
-    }
+    //@CollectionType(type =  )
+//    @CollectionTable
+//    @Setter
+//    @Getter
+    //Map<Station, LocalDateTime> route;
 
-    void showStTimeTable(Train train){
-
-    }
-
-    void showAllTrains(){
-
-    }
 
 
 }

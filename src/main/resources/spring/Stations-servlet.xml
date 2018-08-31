@@ -30,6 +30,6 @@
 
 <!-- Scan the JavaConfig -->
 <!--<context:component-scan base-package="com.mkyong.form.config" />-->
-<context:component-scan base-package="common.config" />
+<context:component-scan base-package="common.*" />
 
 </beans>

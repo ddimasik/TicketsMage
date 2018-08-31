@@ -17,7 +17,7 @@ public class TicketsGodServiceTests {
 
     @Before
     public void setUp(){
-        train.setId(42);
+        //train.setId(42);
         passenger.setId(33);
     }
 

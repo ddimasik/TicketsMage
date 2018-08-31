@@ -9,12 +9,12 @@ import java.util.List;
 
 @Component
 public class TicketsService {
-
-    @Autowired
-    private TicketsRepository ticketsRepository;
-
-    public List<Ticket> findAll(){
-
-        return ticketsRepository.findAll();
-    }
+//
+//    @Autowired
+//    private TicketsRepository ticketsRepository;
+//
+//    public List<Ticket> findAll(){
+//
+//        return ticketsRepository.findAll();
+//    }
 }

@@ -12,7 +12,7 @@
 
     <properties>
         <spring.data.jpa.version>1.7.1.RELEASE</spring.data.jpa.version>
-        <hibernate.version>4.1.9.Final</hibernate.version>
+        <hibernate.version>4.3.6.Final</hibernate.version>
 
         <jdk.version>1.8</jdk.version>
         <spring.version>4.3.18.RELEASE</spring.version>
@@ -148,7 +148,13 @@
             <artifactId>spring-jdbc</artifactId>
             <version>3.1.2.RELEASE</version>
         </dependency>
-        
+
+        <!--Test-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>5.0.7.RELEASE</version>
+        </dependency>
 
 
     </dependencies>
