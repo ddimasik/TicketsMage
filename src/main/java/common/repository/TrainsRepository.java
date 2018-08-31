@@ -7,26 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 @Transactional
-public class TrainsRepository {
+public class TrainsRepository implements TrainsDAO {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    private Session getSession() {
-        return sessionFactory.getCurrentSession();
+    @Override
+    public List<Train> getAllTrains() {
+        List<Train> trains = entityManager.createQuery("Select t FROM Train t", Train.class).getResultList();
+        return trains;
     }
 
+    @Override
     public void addTrain(Train train) {
-        getSession().save(train);
-        //logger.info("Person saved successfully, Person Details="+p);
-    }
 
-    @SuppressWarnings("unchecked")
-    public List<Train> listTrains() {
-        return getSession().createQuery("from Trains").list();
     }
 }

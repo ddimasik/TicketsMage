@@ -1,24 +1,28 @@
 package common.service;
 
 import common.model.Train;
+import common.repository.TrainsDAO;
 import common.repository.TrainsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Component
+@Service
 public class TrainsService {
 
     @Autowired
-    private TrainsRepository trainsRepository;
+    TrainsDAO trainsDAO;
 
+    @Transactional
     public List<Train> findAll(){
-        return trainsRepository.listTrains();
+        return trainsDAO.getAllTrains();
     }
 
+    @Transactional
     public void addTrain(Train train){
-        trainsRepository.addTrain(train);
+        trainsDAO.addTrain(train);
     }
 }

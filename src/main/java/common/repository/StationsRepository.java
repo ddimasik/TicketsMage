@@ -5,11 +5,13 @@ import common.model.Train;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+//import org.springframework.data.jpa.repository.JpaRepository;
+//import org.springframework.data.jpa.repository.Query;
+//import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -26,12 +28,15 @@ public class StationsRepository {
 //    @Query("select p from Station p where p.id = :id")
 //    public Station findById(@Param("id") Integer id);
 
-    @Autowired
-    private SessionFactory sessionFactory;
+//    @Autowired
+//    private SessionFactory sessionFactory;
 
-    private Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
+
+//    private Session getSession() {
+//        return sessionFactory.getCurrentSession();
+//    }
 
 
 }
