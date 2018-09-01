@@ -1,5 +1,6 @@
 package common.service;
 
+import common.dto.TrainDTO;
 import common.model.TrainEntity;
 import common.repository.TrainsDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,10 @@ public class TrainsService {
     }
 
     @Transactional
-    public void addTrain(TrainEntity trainEntity){
+    public void addTrain(TrainDTO trainDTO){
+        TrainEntity trainEntity = new TrainEntity();
+        trainEntity.setName(trainDTO.getName());
+        trainEntity.setCapacity(trainDTO.getCapacity());
         trainsDAO.addTrain(trainEntity);
     }
 }

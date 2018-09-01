@@ -1,6 +1,6 @@
 package common.controller;
 
-import common.model.TrainEntity;
+import common.dto.TrainDTO;
 import common.service.TrainsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,29 +15,27 @@ public class TrainsController {
     @Autowired
     private TrainsService trainsService;
 
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @GetMapping(value = "/")
     public String index(Model model) {
         return "redirect:/allTrains";
     }
 
-    @RequestMapping(value = "/allTrains", method = RequestMethod.GET)
+    @GetMapping(value = "/allTrains")
     public String showAllTrains(Model model) {
         model.addAttribute("trains", trainsService.findAll());
         return "fragments/allTrainsFragment";
     }
 
-    @RequestMapping(value = "/trains/add", method = RequestMethod.GET)
+    @GetMapping(value = "/trains/add")
     public String showTrain(Model model) {
-        model.addAttribute("trainFragment", new TrainEntity());
+        model.addAttribute("trainFragment", new TrainDTO());
         return "fragments/trainFragment";
     }
 
-    @RequestMapping(value = "/allTrains", method = RequestMethod.POST)
-    public String addTrain(@ModelAttribute("trainFragment") TrainEntity trainEntity, Model model){
-        trainsService.addTrain(trainEntity);
+    @PostMapping(value = "/allTrains")
+    public String addTrain(@ModelAttribute("trainFragment") TrainDTO trainDTO, Model model){
+        trainsService.addTrain(trainDTO);
         return "redirect:/allTrains";
     }
-
 
 }
