@@ -13,7 +13,7 @@ public class Ticket {
 
     @Getter
     @Setter
-//    Train train;
+//    TrainEntity train;
     int train_id;
 
     @Getter

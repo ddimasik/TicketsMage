@@ -1,10 +1,8 @@
 package common.service;
 
-import common.model.Train;
+import common.model.TrainEntity;
 import common.repository.TrainsDAO;
-import common.repository.TrainsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,12 +15,12 @@ public class TrainsService {
     TrainsDAO trainsDAO;
 
     @Transactional
-    public List<Train> findAll(){
+    public List<TrainEntity> findAll(){
         return trainsDAO.getAllTrains();
     }
 
     @Transactional
-    public void addTrain(Train train){
-        trainsDAO.addTrain(train);
+    public void addTrain(TrainEntity trainEntity){
+        trainsDAO.addTrain(trainEntity);
     }
 }

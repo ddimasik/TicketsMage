@@ -1,10 +1,10 @@
 package common.repository;
 
-import common.model.Train;
+import common.model.TrainEntity;
 
 import java.util.List;
 
 public interface TrainsDAO {
-    List<Train> getAllTrains();
-    void addTrain(Train train);
+    List<TrainEntity> getAllTrains();
+    void addTrain(TrainEntity trainEntity);
 }

@@ -3,26 +3,25 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <div class="container">
-    <h2>All trains list</h2>
-	<table>
-		<tr><th>ID</th><th>Name</th><th>Capacity</th>
+    <h2>Add new train</h2>
+        <form:form method="POST" action="/allTrains" modelAttribute="trainFragment">
+        <table>
+            <tr>
+                <td><spring:message text="Name"/></td>
+                <td><form:input path="name"/></td>
+            </tr>
+            <tr>
+                <td><spring:message text="Capacity"/></td>
+                <td><form:input path="capacity"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit"></td>
+            </tr>
 
-		<c:forEach var="train" items="${trains}">
-			<tr>
-				<td>
-						${train.id}
-				</td>
-				<td>
-						${train.name}
-				</td>
-				<td>
-						${train.capacity}
-				</td>
-			</tr>
-		</c:forEach>
-
-	</table>
+        </table>
+    </form:form>
 </div>
 
 <script

@@ -2,7 +2,6 @@ package common.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 
 
 import javax.persistence.*;
@@ -11,7 +10,7 @@ import java.util.Map;
 
 @Entity
 @Table(name = "trains")
-public class Train {
+public class TrainEntity {
 
     @Id
     @GeneratedValue
@@ -34,14 +33,6 @@ public class Train {
     @Setter
     @Getter
     String valenki;
-
-
-
-    //@CollectionType(type =  )
-//    @CollectionTable
-//    @Setter
-//    @Getter
-    //Map<Station, LocalDateTime> route;
 
 
 

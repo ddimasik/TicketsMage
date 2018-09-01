@@ -2,7 +2,7 @@ package common.service;
 
 import common.model.Passenger;
 import common.model.Station;
-import common.model.Train;
+import common.model.TrainEntity;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +12,7 @@ public class TicketsGodService {
         return false;
     }
 
-    public boolean createTicket(Train train, Station startStation,Station endStation, Passenger passenger){
+    public boolean createTicket(TrainEntity trainEntity, Station startStation, Station endStation, Passenger passenger){
         return false;
 
     }

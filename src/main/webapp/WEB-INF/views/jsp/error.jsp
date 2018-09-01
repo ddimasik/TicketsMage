@@ -11,7 +11,7 @@
 
 	<div class="container">
 
-		<h1>Error Page better call Saul</h1>
+		<h1>Error page (better call Saul)</h1>
 
 		<p>${exception.message}</p>
 		<!-- Exception: ${exception.message}.

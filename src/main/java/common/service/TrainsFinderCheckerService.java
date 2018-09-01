@@ -2,24 +2,24 @@ package common.service;
 
 import common.model.Passenger;
 import common.model.Station;
-import common.model.Train;
+import common.model.TrainEntity;
 
 import java.time.LocalDateTime;
 
 public class TrainsFinderCheckerService {
-    Train findTrain(Station startStation, Station endStation, LocalDateTime startTime){
-        return new Train();
+    TrainEntity findTrain(Station startStation, Station endStation, LocalDateTime startTime){
+        return new TrainEntity();
     }
 
-    boolean checkCapacity(Train train){
+    boolean checkCapacity(TrainEntity trainEntity){
         return false;
     }
 
-    public boolean checkPresenceOfPassenger(Train train, Passenger passenger){
+    public boolean checkPresenceOfPassenger(TrainEntity trainEntity, Passenger passenger){
         return false;
     }
 
-    boolean checkTime(Train train, Station startStation){
+    boolean checkTime(TrainEntity trainEntity, Station startStation){
         return false;
     }
 
