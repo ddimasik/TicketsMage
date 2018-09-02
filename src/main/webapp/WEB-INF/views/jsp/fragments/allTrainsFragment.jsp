@@ -10,8 +10,8 @@
 
 <div class="container">
     <h2>All trains list</h2>
-	<table>
-		<tr><th>ID</th><th>Name</th><th>Capacity</th><th>Delete train</th>
+	<table border="2" width="100%">
+        <tr><th>ID</th><th>Name</th><th>Capacity</th><th>Delete train</th></tr>
 
 		<c:forEach var="train" items="${trains}">
 			<tr>
@@ -29,6 +29,16 @@
 						<button type='submit' name='delete' value='Delete'>Delete</button>
 					</form>
 				</td>
+                <div>
+                    <c:forEach var="station_id" items="${train.station_id}">
+                    <tr>StationID: ${station_id} </tr>
+                    </c:forEach>
+                    <br>
+                    <c:forEach var="time_on_station" items="${train.time_on_station}">
+                    <tr>Time: ${time_on_station} </tr>
+                    </c:forEach>
+                    <br>
+                </div>
 			</tr>
 		</c:forEach>
 

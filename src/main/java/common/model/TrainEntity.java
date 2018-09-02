@@ -5,7 +5,8 @@ import lombok.Setter;
 
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Entity
@@ -34,6 +35,10 @@ public class TrainEntity {
     @Getter
     String valenki;
 
+    @ElementCollection
+    @CollectionTable(name = "routes")
+    @Getter
+    public Map<Station, LocalTime> route = new LinkedHashMap<>();
 
 
 }

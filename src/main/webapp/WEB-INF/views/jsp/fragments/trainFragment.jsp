@@ -20,10 +20,31 @@
                 <td><spring:message text="Capacity"/></td>
                 <td><form:input path="capacity"/></td>
             </tr>
+
             <tr>
-                <td colspan="2"><input type="submit"></td>
+                <td><h3>Select stations and time</h3></td>
             </tr>
 
+            <tr><th>Station</th><th>Time on station</th><th>Is start station</th></tr>
+            <c:forEach var="station" items="${stations}">
+                <tr>
+                    <td>
+                        ${station.name}
+                        <input hidden type="number" value="${station.id}" name="station_id" >
+                    </td>
+                    <td>
+                        <input  type="time"  id="${station.id}" name="time_on_station">
+                    </td>
+                    <td>
+                        <input type="radio" value="${station.id}" name="start_st">
+                    </td>
+
+                </tr>
+            </c:forEach>
+
+            <tr>
+            <td colspan="2"><input type="submit"></td>
+            </tr>
         </table>
     </form:form>
 </div>
