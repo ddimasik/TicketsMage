@@ -3,10 +3,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!DOCTYPE html>
+<html lang="en">
+
+<jsp:include page="header.jsp" />
+
 <div class="container">
     <h2>All trains list</h2>
 	<table>
-		<tr><th>ID</th><th>Name</th><th>Capacity</th>
+		<tr><th>ID</th><th>Name</th><th>Capacity</th><th>Delete train</th>
 
 		<c:forEach var="train" items="${trains}">
 			<tr>
@@ -18,6 +23,11 @@
 				</td>
 				<td>
 						${train.capacity}
+				</td>
+				<td>
+					<form action="/trains/${train.id}/delete" method="post">
+						<button type='submit' name='delete' value='Delete'>Delete</button>
+					</form>
 				</td>
 			</tr>
 		</c:forEach>

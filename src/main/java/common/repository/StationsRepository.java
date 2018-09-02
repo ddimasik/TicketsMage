@@ -1,19 +1,15 @@
 package common.repository;
 
-//import org.springframework.data.jpa.repository.JpaRepository;
-//import org.springframework.data.jpa.repository.Query;
-//import org.springframework.data.repository.query.Param;
+import common.model.Station;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
-/**
- * This is the Data Access layer. Simple huh?
- * PLease note that no need for any dao implementation. This is an interface!
- */
+@Transactional
 @Repository
-//public interface StationsRepository extends JpaRepository<Station, Long> {
 public class StationsRepository {
 
 //    public List<Station> findByNameContainingIgnoreCase(String searchString);
@@ -22,15 +18,27 @@ public class StationsRepository {
 //    @Query("select p from Station p where p.id = :id")
 //    public Station findById(@Param("id") Integer id);
 
-//    @Autowired
-//    private SessionFactory sessionFactory;
-
     @PersistenceContext
     private EntityManager entityManager;
 
-//    private Session getSession() {
-//        return sessionFactory.getCurrentSession();
-//    }
+    public List<Station> findAll() {
+        return entityManager.createQuery("Select t FROM Station t", Station.class).getResultList();
+    }
 
+    public Station findByNameIs(String name){
+        return entityManager.find(Station.class, name);
+    }
+
+    public Station findById(Integer id){
+        return entityManager.find(Station.class, id);
+    }
+
+    public void save(Station station){
+        entityManager.persist(station);
+    }
+
+    public void delete(Station station){
+        entityManager.remove(station);
+    }
 
 }

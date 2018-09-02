@@ -24,4 +24,14 @@ public class TrainsDAOImpl implements TrainsDAO {
     public void addTrain(TrainEntity trainEntity) {
         entityManager.persist(trainEntity);
     }
+
+    @Override
+    public TrainEntity findById(Integer id){
+        return entityManager.find(TrainEntity.class, id);
+    }
+
+    @Override
+    public void delete(TrainEntity trainEntity){
+        entityManager.remove(trainEntity);
+    }
 }

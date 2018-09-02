@@ -14,12 +14,23 @@
 </head>
 
 <spring:url value="/" var="urlHome" />
+<spring:url value="/allTrains" var="urlAllTrains" />
+<spring:url value="/trains/add" var="urlAddTrain" />
 <spring:url value="/stations/add" var="urlAddStation" />
+
 
 <nav class="navbar navbar-inverse ">
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="${urlHome}">Home</a>
+		</div>
+		<div id="navbarTrains">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="${urlAllTrains}">All trains</a></li>
+			</ul>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="${urlAddTrain}">Add train</a></li>
+			</ul>
 		</div>
 		<div id="navbar">
 			<ul class="nav navbar-nav navbar-right">

@@ -16,6 +16,11 @@ public class TrainsService {
     TrainsDAO trainsDAO;
 
     @Transactional
+    public TrainEntity findById(Integer id) {
+        return trainsDAO.findById(id);
+    }
+
+    @Transactional
     public List<TrainEntity> findAll(){
         return trainsDAO.getAllTrains();
     }
@@ -27,4 +32,11 @@ public class TrainsService {
         trainEntity.setCapacity(trainDTO.getCapacity());
         trainsDAO.addTrain(trainEntity);
     }
+
+    @Transactional
+    public void removeTrain(int id){
+        trainsDAO.delete(findById(id));
+    }
+
+
 }

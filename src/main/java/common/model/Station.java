@@ -1,40 +1,26 @@
 package common.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 
 
 @Entity
+@Table(name = "station")
 public class Station {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    @GeneratedValue
+    @Column(name = "id")
+    @Getter
+    @Setter
+    Integer id;
 
-    public String name;
-
-    public Station() {
-        //Default constructor needed for JPA.
-    }
-    public Station(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public Integer getId() {
-        return id;
-    }
+    @Column(name = "name")
+    @Setter
+    @Getter
+    String name;
 
     //Check if this is for New of Update
     public boolean isNew() {

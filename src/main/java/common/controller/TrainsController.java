@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /** List, create, change, remove trains via web-interface */
 
@@ -15,10 +16,10 @@ public class TrainsController {
     @Autowired
     private TrainsService trainsService;
 
-    @GetMapping(value = "/")
-    public String index(Model model) {
-        return "redirect:/allTrains";
-    }
+//    @GetMapping(value = "/")
+//    public String index(Model model) {
+//        return "redirect:/allTrains";
+//    }
 
     @GetMapping(value = "/allTrains")
     public String showAllTrains(Model model) {
@@ -38,4 +39,9 @@ public class TrainsController {
         return "redirect:/allTrains";
     }
 
+    @PostMapping(value = "/trains/{id}/delete")
+    public String deleteTrain(@PathVariable("id") int id) {
+        trainsService.removeTrain(id);
+        return "redirect:/allTrains";
+    }
 }

@@ -6,75 +6,67 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Service layer.
- * Specify transactional behavior and mainly
- * delegate calls to Repository.
- */
-@Component
+@Service
 public class StationService {
 
 //    private final Logger logger = LoggerFactory.getLogger(StationService.class);
 //
-//    @Autowired
-//    private StationsRepository stationsRepository;
-//
-//    public Station findById(Integer id) {
-//        return stationsRepository.findById(id);
-//    }
-//
-//    public void saveOrUpdate(Station station) {
-//
-//        if (findById(station.getId())==null) {
-//            stationsRepository.save(station);
-//        } else {
-//            update(station);
-//        }
-//
-//    }
-//
-//    void update(Station station){
-//        Station stToSave = new Station();
-//
-//        stToSave.name = station.getName();
-//        logger.debug(stToSave.name);
-//        stToSave.id = station.getId();
-//        logger.debug(stToSave.id.toString());
-//
-//        stationsRepository.save(stToSave);
-//
-//
-//
-//    }
-//
-//    @Transactional
-//    public void add(Station station) {
-//        stationsRepository.save(station);
-//    }
-//
-//    @Transactional
-//    public void removeStation(int id) {
-//        stationsRepository.delete(findById(id));
-//    }
-//
-//
-//    @Transactional(readOnly=true)
-//    public List<Station> findAll() {
-//        return stationsRepository.findAll();
-//    }
-//
-//    @Transactional
-//    public void addAll(Collection<Station> stations) {
-//        for (Station station : stations) {
-//            stationsRepository.save(station);
-//        }
-//    }
-//
+    @Autowired
+    private StationsRepository stationsRepository;
+
+    @Transactional
+    public Station findById(Integer id) {
+        return stationsRepository.findById(id);
+    }
+
+    @Transactional
+    public void saveOrUpdate(Station station) {
+        if (findById(station.getId())==null) {
+            stationsRepository.save(station);
+        } else {
+            update(station);
+        }
+
+    }
+
+    @Transactional
+    void update(Station station){
+        Station stToSave = new Station();
+        stToSave.setName(station.getName());
+        //logger.debug(stToSave.name);
+        stToSave.setId(station.getId());
+        //logger.debug(stToSave.id.toString());
+        stationsRepository.save(stToSave);
+    }
+
+    @Transactional
+    public void add(Station station) {
+        stationsRepository.save(station);
+    }
+
+    @Transactional
+    public void removeStation(int id) {
+        stationsRepository.delete(findById(id));
+    }
+
+    @Transactional(readOnly=true)
+    public List<Station> findAll() {
+        return stationsRepository.findAll();
+    }
+
+    @Transactional
+    public void addAll(Collection<Station> stations) {
+        for (Station station : stations) {
+            stationsRepository.save(station);
+        }
+    }
+
 //    @Transactional(readOnly=true)
 //    public List<Station> findByNameIs(String name) {
 //        return stationsRepository.findByNameIs(name);

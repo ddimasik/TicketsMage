@@ -33,130 +33,119 @@ import common.validator.StationFormValidator;
 @Controller
 public class StationController {
 //    private final Logger logger = LoggerFactory.getLogger(StationController.class);
-//
-//    @Autowired
-//    private StationService stationService;
-//
-//    @Autowired
-//    StationFormValidator stationFormValidator;
-//
-//    //Set a form validator
-//    @InitBinder
-//    protected void initBinder(WebDataBinder binder) {
-//        binder.setValidator(stationFormValidator);
-//    }
-//
-//    @RequestMapping(value = "/", method = RequestMethod.GET)
-//    public String index(Model model) {
+
+    @Autowired
+    private StationService stationService;
+
+    @Autowired
+    StationFormValidator stationFormValidator;
+
+    //Set a form validator
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(stationFormValidator);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index(Model model) {
 //        logger.debug("index()");
-//        return "redirect:/stations";
-//    }
-//
-//    // list page
-//    @RequestMapping(value = "/stations", method = RequestMethod.GET)
-//    public String showAllStations(Model model) {
-//        logger.debug("showAllStations()");
-//        model.addAttribute("stations", stationService.findAll());
-//        return "stations/list";
-//    }
-//    // show user
-//    @RequestMapping(value = "/stations/{id}", method = RequestMethod.GET)
-//    public String showUser(@PathVariable("id") int id, Model model) {
+        return "redirect:/stations";
+    }
+
+      // list page
+    @RequestMapping(value = "/stations", method = RequestMethod.GET)
+    public String showAllStations(Model model) {
+ //       logger.debug("showAllStations()");
+        model.addAttribute("stations", stationService.findAll());
+        return "stations/list";
+    }
+    // show user
+    @RequestMapping(value = "/stations/{id}", method = RequestMethod.GET)
+    public String showUser(@PathVariable("id") int id, Model model) {
 //        logger.debug("showUser() id: {}", id);
 //
-//        Station station = stationService.findById(id);
-//        if (station == null) {
-//            model.addAttribute("css", "danger");
-//            model.addAttribute("msg", "Station not found");
-//        }
-//        model.addAttribute("station", station);
-//        return "stations/show";
-//    }
-//
+        Station station = stationService.findById(id);
+        if (station == null) {
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "Station not found");
+        }
+        model.addAttribute("station", station);
+        return "stations/show";
+    }
+
 //    // show add user form
-//    @RequestMapping(value = "/stations/add", method = RequestMethod.GET)
-//    public String showAddUserForm(Model model) {
-//        logger.debug("showAddUserForm()");
-//        Station station = new Station();
-//        // set default value
-//        station.setName("Gadjukino");
-//        model.addAttribute("stationForm", station);
-//        populateDefaultModel(model);
-//        return "stations/stationform";
-//    }
+    @RequestMapping(value = "/stations/add", method = RequestMethod.GET)
+    public String showAddUserForm(Model model) {
+ //       logger.debug("showAddUserForm()");
+        Station station = new Station();
+        // set default value
+        station.setName("Gadjukino");
+        model.addAttribute("stationForm", station);
+        populateDefaultModel(model);
+        return "stations/stationform";
+    }
 //
-//    // show update form
-//    @RequestMapping(value = "/stations/{id}/update", method = RequestMethod.GET)
-//    public String showUpdateUserForm(@PathVariable("id") int id, Model model) {
+    // show update form
+    @RequestMapping(value = "/stations/{id}/update", method = RequestMethod.GET)
+    public String showUpdateUserForm(@PathVariable("id") int id, Model model) {
 //        logger.debug("showUpdateUserForm() : {}", id);
-//        Station station = stationService.findById(id);
-//        model.addAttribute("stationForm", station);
-//        populateDefaultModel(model);
-//        return "stations/stationform";
-//    }
-//
+        Station station = stationService.findById(id);
+        model.addAttribute("stationForm", station);
+        populateDefaultModel(model);
+        return "stations/stationform";
+    }
+
 //    // save or update user
 //    // 1. @ModelAttribute bind form value
 //    // 2. @Validated form validator
 //    // 3. RedirectAttributes for flash value
-//    @RequestMapping(value = "/stations", method = RequestMethod.POST)
-//    public String saveOrUpdateUser(@ModelAttribute("stationForm") @Validated Station station,
-//                                   BindingResult result, Model model,
-//                                   final RedirectAttributes redirectAttributes) {
-//
-//
-//
+    @RequestMapping(value = "/stations", method = RequestMethod.POST)
+    public String saveOrUpdateUser(@ModelAttribute("stationForm") @Validated Station station,
+                                   BindingResult result, Model model,
+                                   final RedirectAttributes redirectAttributes) {
 //        logger.debug("saveOrUpdateUser() : {}", station);
 //        logger.debug("result : {}", result.getAllErrors());
 //        logger.debug("model : {}",model);
-//
-//
-//        if (result.hasErrors()) {
+        if (result.hasErrors()) {
 //            logger.debug("was error!");
-//            populateDefaultModel(model);
-//            return "stations/stationform";
-//        } else {
+            populateDefaultModel(model);
+            return "stations/stationform";
+        } else {
+
+             //Add message to flash scope
+            redirectAttributes.addFlashAttribute("css", "success");
+            if(station.isNew()){
+                redirectAttributes.addFlashAttribute("msg", "Station added successfully!");
+            }else{
+                redirectAttributes.addFlashAttribute("msg", "Station updated successfully!");
+            }
+
+            stationService.saveOrUpdate(station);
+
+            // POST/REDIRECT/GET
+            return "redirect:/stations/" + station.getId();
+            // POST/FORWARD/GET
+            // return "user/list";
+        }
+    }
 //
-//             //Add message to flash scope
-//            redirectAttributes.addFlashAttribute("css", "success");
-//            if(station.isNew()){
-//                redirectAttributes.addFlashAttribute("msg", "Station added successfully!");
-//            }else{
-//                redirectAttributes.addFlashAttribute("msg", "Station updated successfully!");
-//            }
-//
-//            stationService.saveOrUpdate(station);
-//
-//            // POST/REDIRECT/GET
-//            return "redirect:/stations/" + station.getId();
-//            // POST/FORWARD/GET
-//            // return "user/list";
-//        }
-//    }
-//
-//    // delete user
-//    @RequestMapping(value = "/stations/{id}/delete", method = RequestMethod.POST)
-//    public String deleteUser(@PathVariable("id") int id,
-//                             final RedirectAttributes redirectAttributes) {
+    // delete user
+    @RequestMapping(value = "/stations/{id}/delete", method = RequestMethod.POST)
+    public String deleteUser(@PathVariable("id") int id,
+                             final RedirectAttributes redirectAttributes) {
 //        logger.debug("deleteUser() : {}", id);
-//        stationService.removeStation(id);
-//        redirectAttributes.addFlashAttribute("css", "success");
-//        redirectAttributes.addFlashAttribute("msg", "Station is deleted!");
-//        return "redirect:/stations";
-//
-//    }
-//
-//
-//
-//
-//
-//
-//    private void populateDefaultModel(Model model) {
-//     //   List<String> stationNames = new ArrayList<String>();
-//     //   stationNames.add("Default city");
-//        model.addAttribute("name", "Default city");
-//
-//    }
+        stationService.removeStation(id);
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", "Station is deleted!");
+        return "redirect:/stations";
+
+    }
+    private void populateDefaultModel(Model model) {
+     //   List<String> stationNames = new ArrayList<String>();
+     //   stationNames.add("Default city");
+        model.addAttribute("name", "Default city");
+
+    }
 
 
 }
