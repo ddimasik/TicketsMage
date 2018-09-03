@@ -3,7 +3,6 @@ package common.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalTime;
 
 
 public class TrainDTO {
@@ -18,12 +17,12 @@ public class TrainDTO {
     String name;
 
     @Setter @Getter
-    int [] station_id;
+    int [] stationId;
 
     @Setter @Getter
-    String [] time_on_station;
+    String [] timeOnStation;
 
     @Setter @Getter
-    String [] start_st;
+    String [] startSt;
 
 }

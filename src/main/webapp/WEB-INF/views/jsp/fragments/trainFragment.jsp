@@ -30,13 +30,13 @@
                 <tr>
                     <td>
                         ${station.name}
-                        <input hidden type="number" value="${station.id}" name="station_id" >
+                        <input hidden type="number" value="${station.id}" name="stationId" >
                     </td>
                     <td>
-                        <input  type="time"  id="${station.id}" name="time_on_station">
+                        <input  type="time"  id="${station.id}" name="timeOnStation">
                     </td>
                     <td>
-                        <input type="radio" value="${station.id}" name="start_st">
+                        <input type="radio" value="${station.id}" name="startSt">
                     </td>
 
                 </tr>

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -17,10 +16,10 @@ import java.util.List;
 public class TrainsService {
 
     @Autowired
-    TrainsDAO trainsDAO;
+    private TrainsDAO trainsDAO;
 
     @Autowired
-    StationsRepository stationsRepository;
+    private StationsRepository stationsRepository;
 
     @Transactional
     public TrainEntity findById(Integer id) {
@@ -39,9 +38,9 @@ public class TrainsService {
         trainEntity.setCapacity(trainDTO.getCapacity());
         trainsDAO.addTrain(trainEntity);
         for (int i = 0; i < stationsRepository.findAll().size(); i++){
-            if (trainDTO.getTime_on_station()[i] != ""){
-                Station station = stationsRepository.findById(trainDTO.getStation_id()[i]);
-                LocalTime time = LocalTime.parse(trainDTO.getTime_on_station()[i]);
+            if (trainDTO.getTimeOnStation()[i] != ""){
+                Station station = stationsRepository.findById(trainDTO.getStationId()[i]);
+                LocalTime time = LocalTime.parse(trainDTO.getTimeOnStation()[i]);
                 addStationToRoute(trainEntity, station, time);
             }
         }

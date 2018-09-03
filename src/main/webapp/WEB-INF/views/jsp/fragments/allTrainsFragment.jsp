@@ -29,13 +29,13 @@
 						<button type='submit' name='delete' value='Delete'>Delete</button>
 					</form>
 				</td>
-                <div>
-                    <c:forEach var="station_id" items="${train.station_id}">
-                    <tr>StationID: ${station_id} </tr>
+                <div class="container">
+                    <c:forEach var="stationId" items="${train.stationId}">
+                    <tr>StationID: ${stationId} </tr>
                     </c:forEach>
                     <br>
-                    <c:forEach var="time_on_station" items="${train.time_on_station}">
-                    <tr>Time: ${time_on_station} </tr>
+                    <c:forEach var="timeOnStation" items="${train.timeOnStation}">
+                    <tr>Time: ${timeOnStation} </tr>
                     </c:forEach>
                     <br>
                 </div>

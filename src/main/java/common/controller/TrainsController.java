@@ -15,7 +15,6 @@ import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /** List, create, change, remove trains via web-interface */
 
@@ -48,17 +47,17 @@ public class TrainsController {
             trainDTO.setId(t.getId());
             trainDTO.setName(t.getName());
             trainDTO.setCapacity(t.getCapacity());
-            int routes_quantity = t.route.size();
-            int [] st_ids = new int[routes_quantity];
-            String [] st_time = new String[routes_quantity];
+            int routesQuantity = t.route.size();
+            int [] stIds = new int[routesQuantity];
+            String [] stTime = new String[routesQuantity];
             int j = 0;
             for (Map.Entry<Station, LocalTime> me : t.route.entrySet()) {
-                st_ids [j] = me.getKey().getId();
-                st_time [j] = me.getValue().toString();
+                stIds[j] = me.getKey().getId();
+                stTime[j] = me.getValue().toString();
                 j++;
             }
-            trainDTO.setStation_id(st_ids);
-            trainDTO.setTime_on_station(st_time);
+            trainDTO.setStationId(stIds);
+            trainDTO.setTimeOnStation(stTime);
             trainDTOList.add(trainDTO);
         }
         model.addAttribute("trains", trainDTOList);
