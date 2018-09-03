@@ -11,33 +11,23 @@ import java.util.Map;
 
 @Entity
 @Table(name = "trains")
+@Setter
+@Getter
 public class TrainEntity {
 
     @Id
     @GeneratedValue
     @Column(name = "id")
-    @Getter
-    int id;
+    private int id;
 
     @Column(name = "capacity")
-    @Setter
-    @Getter
-    int capacity;
+    private int capacity;
 
     @Column(name = "name")
-    @Setter
-    @Getter
-    String name;
-
-
-    @Column(name = "valenki")
-    @Setter
-    @Getter
-    String valenki;
+    private String name;
 
     @ElementCollection
     @CollectionTable(name = "routes")
-    @Getter
     public Map<Station, LocalTime> route = new LinkedHashMap<>();
 
 

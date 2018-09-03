@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class TrainsDAOImpl implements TrainsDAO {
+public class TrainsRepositoryImpl implements TrainsRepository {
 
     @PersistenceContext
     private EntityManager entityManager;

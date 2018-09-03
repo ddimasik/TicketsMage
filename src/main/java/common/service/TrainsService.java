@@ -4,7 +4,7 @@ import common.dto.TrainDTO;
 import common.model.Station;
 import common.model.TrainEntity;
 import common.repository.StationsRepository;
-import common.repository.TrainsDAO;
+import common.repository.TrainsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,30 +13,28 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Service
+@Transactional
 public class TrainsService {
 
     @Autowired
-    private TrainsDAO trainsDAO;
+    private TrainsRepository trainsRepository;
 
     @Autowired
     private StationsRepository stationsRepository;
 
-    @Transactional
     public TrainEntity findById(Integer id) {
-        return trainsDAO.findById(id);
+        return trainsRepository.findById(id);
     }
 
-    @Transactional
     public List<TrainEntity> findAll(){
-        return trainsDAO.getAllTrains();
+        return trainsRepository.getAllTrains();
     }
 
-    @Transactional
     public void addTrain(TrainDTO trainDTO){
         TrainEntity trainEntity = new TrainEntity();
         trainEntity.setName(trainDTO.getName());
         trainEntity.setCapacity(trainDTO.getCapacity());
-        trainsDAO.addTrain(trainEntity);
+        trainsRepository.addTrain(trainEntity);
         for (int i = 0; i < stationsRepository.findAll().size(); i++){
             if (trainDTO.getTimeOnStation()[i] != ""){
                 Station station = stationsRepository.findById(trainDTO.getStationId()[i]);
@@ -46,14 +44,12 @@ public class TrainsService {
         }
     }
 
-    @Transactional
     public void removeTrain(int id){
-        trainsDAO.delete(findById(id));
+        trainsRepository.delete(findById(id));
     }
 
-    @Transactional
     public void addStationToRoute(TrainEntity trainEntity, Station station, LocalTime time){
-        trainsDAO.addStationToRoute(trainEntity, station, time);
+        trainsRepository.addStationToRoute(trainEntity, station, time);
 
     }
 
