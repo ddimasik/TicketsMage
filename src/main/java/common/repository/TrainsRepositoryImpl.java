@@ -1,13 +1,11 @@
 package common.repository;
 
-import common.model.Station;
 import common.model.TrainEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -36,12 +34,5 @@ public class TrainsRepositoryImpl implements TrainsRepository {
     public void delete(TrainEntity trainEntity){
         entityManager.remove(trainEntity);
     }
-
-    @Override
-    public void addStationToRoute(TrainEntity trainEntity, Station station, LocalTime time) {
-        trainEntity.route.put(station, time);
-        entityManager.persist(trainEntity);
-    }
-
 
 }

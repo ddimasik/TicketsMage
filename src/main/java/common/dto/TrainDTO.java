@@ -3,26 +3,22 @@ package common.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-
-
+@Setter
+@Getter
 public class TrainDTO {
 
-    @Setter @Getter
     int id;
 
-    @Setter @Getter
     int capacity;
 
-    @Setter @Getter
     String name;
 
-    @Setter @Getter
+    StationDTO [] stationIdDTO;
+
     int [] stationId;
 
-    @Setter @Getter
     String [] timeOnStation;
 
-    @Setter @Getter
     String [] startSt;
 
 }

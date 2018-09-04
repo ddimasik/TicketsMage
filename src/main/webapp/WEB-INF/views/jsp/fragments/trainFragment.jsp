@@ -11,7 +11,7 @@
 <div class="container">
     <h2>Add new train</h2>
         <form:form method="POST" action="/allTrains" modelAttribute="trainFragment">
-        <table>
+        <table class="table table-striped">
             <tr>
                 <td><spring:message text="Name"/></td>
                 <td><form:input path="name"/></td>
@@ -22,7 +22,7 @@
             </tr>
 
             <tr>
-                <td><h3>Select stations and time</h3></td>
+                <td colspan="3"><h3>Select stations and time</h3></td>
             </tr>
 
             <tr><th>Station</th><th>Time on station</th><th>Is start station</th></tr>

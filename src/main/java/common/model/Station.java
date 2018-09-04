@@ -7,22 +7,19 @@ import javax.persistence.*;
 
 
 @Entity
+@Getter
+@Setter
 @Table(name = "station")
 public class Station {
 
     @Id
     @GeneratedValue
     @Column(name = "id")
-    @Getter
-    @Setter
     Integer id;
 
     @Column(name = "name")
-    @Setter
-    @Getter
     String name;
 
-    //Check if this is for New of Update
     public boolean isNew() {
         return (this.id == null);
     }

@@ -10,11 +10,12 @@
 
 <div class="container">
     <h2>All trains list</h2>
-	<table border="2" width="100%">
-        <tr><th>ID</th><th>Name</th><th>Capacity</th><th>Delete train</th></tr>
+	<table class="table table-striped" width="80%" >
+        <tr><th>ID</th><th>Name</th><th>Capacity</th><th>Route</th><th>Delete train</th></tr>
 
 		<c:forEach var="train" items="${trains}">
-			<tr>
+
+            <tr>
 				<td>
 						${train.id}
 				</td>
@@ -24,21 +25,20 @@
 				<td>
 						${train.capacity}
 				</td>
-				<td>
-					<form action="/trains/${train.id}/delete" method="post">
-						<button type='submit' name='delete' value='Delete'>Delete</button>
-					</form>
-				</td>
-                <div class="container">
-                    <c:forEach var="stationId" items="${train.stationId}">
-                    <tr>StationID: ${stationId} </tr>
-                    </c:forEach>
-                    <br>
-                    <c:forEach var="timeOnStation" items="${train.timeOnStation}">
-                    <tr>Time: ${timeOnStation} </tr>
-                    </c:forEach>
-                    <br>
-                </div>
+                <td>
+                        <c:forEach var="stationId" items="${train.stationId}">
+                            <span>StationID: ${stationId}</span>
+                        </c:forEach>
+                        <br>
+                        <c:forEach var="timeOnStation" items="${train.timeOnStation}">
+                            <span>Time: ${timeOnStation}</span>
+                        </c:forEach>
+                </td>
+                <td>
+                    <form action="/trains/${train.id}/delete" method="post">
+                        <button type='submit' name='delete' value='Delete'>Delete</button>
+                    </form>
+                </td>
 			</tr>
 		</c:forEach>
 

@@ -22,6 +22,9 @@ public class TrainsService {
     @Autowired
     private StationsRepository stationsRepository;
 
+    @Autowired
+    private RouteService routeService;
+
     public TrainEntity findById(Integer id) {
         return trainsRepository.findById(id);
     }
@@ -35,11 +38,12 @@ public class TrainsService {
         trainEntity.setName(trainDTO.getName());
         trainEntity.setCapacity(trainDTO.getCapacity());
         trainsRepository.addTrain(trainEntity);
+
         for (int i = 0; i < stationsRepository.findAll().size(); i++){
             if (trainDTO.getTimeOnStation()[i] != ""){
                 Station station = stationsRepository.findById(trainDTO.getStationId()[i]);
                 LocalTime time = LocalTime.parse(trainDTO.getTimeOnStation()[i]);
-                addStationToRoute(trainEntity, station, time);
+                routeService.createRoute(trainEntity, station, time);
             }
         }
     }
@@ -47,11 +51,5 @@ public class TrainsService {
     public void removeTrain(int id){
         trainsRepository.delete(findById(id));
     }
-
-    public void addStationToRoute(TrainEntity trainEntity, Station station, LocalTime time){
-        trainsRepository.addStationToRoute(trainEntity, station, time);
-
-    }
-
 
 }

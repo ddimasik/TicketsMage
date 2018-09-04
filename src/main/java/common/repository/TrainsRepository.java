@@ -1,9 +1,7 @@
 package common.repository;
 
-import common.model.Station;
 import common.model.TrainEntity;
 
-import java.time.LocalTime;
 import java.util.List;
 
 public interface TrainsRepository {
@@ -15,5 +13,4 @@ public interface TrainsRepository {
 
     void delete(TrainEntity trainEntity);
 
-    void addStationToRoute(TrainEntity trainEntity, Station station, LocalTime time);
 }
