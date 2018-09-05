@@ -7,18 +7,18 @@ import lombok.Setter;
 @Getter
 public class TrainDTO {
 
-    int id;
+    private int id;
 
-    int capacity;
+    private int capacity;
 
-    String name;
+    private String name;
 
-    StationDTO [] stationIdDTO;
+    private StationDTO [] stationIdDTO;
 
-    int [] stationId;
+    private int [] stationId;
 
-    String [] timeOnStation;
+    private String [] timeOnStation;
 
-    String [] startSt;
+    private String [] startSt;
 
 }

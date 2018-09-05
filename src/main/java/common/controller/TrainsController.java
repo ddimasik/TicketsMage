@@ -3,9 +3,7 @@ package common.controller;
 import common.dto.TrainDTO;
 import common.model.RouteEntity;
 import common.model.TrainEntity;
-import common.service.RouteService;
-import common.service.StationService;
-import common.service.TrainsService;
+import common.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,30 +25,15 @@ public class TrainsController {
     private StationService stationService;
 
     @Autowired
-    private RouteService routeService;
+    EntityToDtoConverter entityToDtoConverter;
 
     @GetMapping(value = "/allTrains")
     @Transactional
     public String showAllTrains(Model model) {
-        List<TrainDTO> trainDTOList = new LinkedList<>();
-        for (TrainEntity traintEntity : trainsService.findAll()) {
-            TrainDTO trainDTO = new TrainDTO();
-            trainDTO.setId(traintEntity.getId());
-            trainDTO.setName(traintEntity.getName());
-            trainDTO.setCapacity(traintEntity.getCapacity());
-            int routesQuantity = routeService.findRouteOfTrain(traintEntity).size();
-            int [] stIds = new int[routesQuantity];
-            String [] stTime = new String[routesQuantity];
-            int j = 0;
-            for (RouteEntity re : routeService.findRouteOfTrain(traintEntity)) {
-                stIds[j] = re.getStationId();
-                stTime[j] = re.getTime().toString();
-                j++;
-            }
 
-            trainDTO.setStationId(stIds);
-            trainDTO.setTimeOnStation(stTime);
-            trainDTOList.add(trainDTO);
+        List<TrainDTO> trainDTOList = new LinkedList<>();
+        for (TrainEntity trainEntity : trainsService.findAll()) {
+            trainDTOList.add(entityToDtoConverter.convert(trainEntity));
         }
         model.addAttribute("trains", trainDTOList);
         return "fragments/allTrainsFragment";

@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 public class StationDTO {
 
-    int id;
-    String name;
+    private int id;
+    private String name;
 }
