@@ -1,9 +1,10 @@
 package common.controller;
 
 import common.dto.TrainDTO;
-import common.model.RouteEntity;
 import common.model.TrainEntity;
-import common.service.*;
+import common.service.EntityToDtoConverter;
+import common.service.StationService;
+import common.service.TrainsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,7 @@ public class TrainsController {
     private StationService stationService;
 
     @Autowired
-    EntityToDtoConverter entityToDtoConverter;
+    private EntityToDtoConverter entityToDtoConverter;
 
     @GetMapping(value = "/allTrains")
     @Transactional

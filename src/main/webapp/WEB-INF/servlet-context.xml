@@ -79,11 +79,13 @@
     <tx:annotation-driven />
 
     <beans:bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
-        <!--<beans:property name="converters">-->
-            <!--<beans:list>-->
-                <!--<beans:bean class="common.service.EntityToDtoConverterImpl" />-->
-            <!--</beans:list>-->
-        <!--</beans:property>-->
+        <beans:property name="converters">
+            <beans:list>
+                <beans:ref bean="entityToDtoConverter"/>
+            </beans:list>
+        </beans:property>
     </beans:bean>
+
+    <beans:bean id="entityToDtoConverter" class="common.service.EntityToDtoConverterImpl" />
 
 </beans:beans>
