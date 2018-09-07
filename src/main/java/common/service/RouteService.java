@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -18,11 +17,11 @@ public class RouteService {
     @Autowired
     private RouteRepository routeRepository;
 
-    public void createRoute(TrainEntity trainEntity, Station station, LocalTime time){
+    public void createRoute(TrainEntity trainEntity, Station station, int minutesFromStartStn){
         RouteEntity routeEntity = new RouteEntity();
         routeEntity.setTrainEntityId(trainEntity.getId());
         routeEntity.setStationId(station.getId());
-        routeEntity.setTime(time);
+        routeEntity.setMinutesFromStartStn(minutesFromStartStn);
         routeRepository.addRoute(routeEntity);
     }
 

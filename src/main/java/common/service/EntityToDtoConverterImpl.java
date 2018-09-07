@@ -21,17 +21,18 @@ public class EntityToDtoConverterImpl implements EntityToDtoConverter, Converter
         trainDTO.setId(trainEntity.getId());
         trainDTO.setName(trainEntity.getName());
         trainDTO.setCapacity(trainEntity.getCapacity());
+        trainDTO.setStartDateTime(trainEntity.getStartDateTime());
         int routesQuantity = routeService.findRouteOfTrain(trainEntity).size();
         int [] stIds = new int[routesQuantity];
-        String [] stTime = new String[routesQuantity];
+        int [] stTime = new int[routesQuantity];
         int j = 0;
         for (RouteEntity re : routeService.findRouteOfTrain(trainEntity)) {
             stIds[j] = re.getStationId();
-            stTime[j] = re.getTime().toString();
+            stTime[j] = re.getMinutesFromStartStn();
             j++;
         }
         trainDTO.setStationId(stIds);
-        trainDTO.setTimeOnStation(stTime);
+        trainDTO.setMinutesFromStartStn(stTime);
         return trainDTO;
 
     }

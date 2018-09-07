@@ -2,7 +2,10 @@ package common.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "trains")
@@ -12,12 +15,19 @@ public class TrainEntity {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column
     private int id;
 
-    @Column(name = "capacity")
+    @Column
     private int capacity;
 
-    @Column(name = "name")
+    @Column
     private String name;
+
+    @Column
+    private int startSt;
+
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime startDateTime;
 }

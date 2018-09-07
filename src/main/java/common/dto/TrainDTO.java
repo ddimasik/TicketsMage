@@ -13,12 +13,12 @@ public class TrainDTO {
 
     private String name;
 
-    private StationDTO [] stationIdDTO;
+    private int startSt;
 
     private int [] stationId;
 
-    private String [] timeOnStation;
+    private int [] minutesFromStartStn;
 
-    private String [] startSt;
+    private Object startDateTime;
 
 }

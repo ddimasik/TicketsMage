@@ -14,18 +14,33 @@
         <table class="table table-striped">
             <tr>
                 <td><spring:message text="Name"/></td>
-                <td><form:input path="name"/></td>
+                <td><form:input path="name" required="required"/></td>
             </tr>
             <tr>
                 <td><spring:message text="Capacity"/></td>
-                <td><form:input path="capacity"/></td>
+                <td><form:input path="capacity" type="number" required="required"/></td>
             </tr>
 
             <tr>
-                <td colspan="3"><h3>Select stations and time</h3></td>
+                <td><spring:message text="Start station"/></td>
+                <td><form:select path="startSt" multiple="">
+                    <c:forEach var="station" items="${stations}">
+                        <form:option value="${station.id}">${station.name}</form:option>
+                    </c:forEach>
+                    </form:select>
+                </td>
             </tr>
 
-            <tr><th>Station</th><th>Time on station</th><th>Is start station</th></tr>
+            <tr>
+                <td><spring:message text="Start date & time"/></td>
+                <td><input name="startDateTime" type="datetime-local" required="required"/></td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><h3>Select stations and time</h3></td>
+            </tr>
+
+            <tr><th>Station</th><th>Time from start</th></tr>
             <c:forEach var="station" items="${stations}">
                 <tr>
                     <td>
@@ -33,19 +48,14 @@
                         <input hidden type="number" value="${station.id}" name="stationId" >
                     </td>
                     <td>
-                        <input  type="time"  id="${station.id}" name="timeOnStation">
-                    </td>
-                    <td>
-                        <input type="radio" value="${station.id}" name="startSt">
+                        <input  type="number" name="minutesFromStartStn" value="0" required>
                     </td>
 
                 </tr>
             </c:forEach>
-
-            <tr>
-            <td colspan="2"><input type="submit"></td>
-            </tr>
         </table>
+        <input type="submit">
+
     </form:form>
 </div>
 

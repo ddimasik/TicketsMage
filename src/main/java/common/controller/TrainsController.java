@@ -48,7 +48,7 @@ public class TrainsController {
     }
 
     @PostMapping(value = "/allTrains")
-    public String addTrain(@ModelAttribute("trainFragment") TrainDTO trainDTO, Model model){
+    public String addTrain(@ModelAttribute("trainFragment") TrainDTO trainDTO){
         trainsService.addTrain(trainDTO);
         return "redirect:/allTrains";
     }

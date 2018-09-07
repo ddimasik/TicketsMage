@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -37,12 +38,18 @@ public class TrainsService {
         TrainEntity trainEntity = new TrainEntity();
         trainEntity.setName(trainDTO.getName());
         trainEntity.setCapacity(trainDTO.getCapacity());
+        trainEntity.setStartSt(trainDTO.getStartSt());
+
+        String startDateTimeString = trainDTO.getStartDateTime().toString().replace('T',' ');
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        trainEntity.setStartDateTime(LocalDateTime.parse(startDateTimeString, formatter));
         trainsRepository.addTrain(trainEntity);
 
         for (int i = 0; i < stationsRepository.findAll().size(); i++){
-            if (trainDTO.getTimeOnStation()[i] != ""){
+            if (trainDTO.getMinutesFromStartStn()[i] != 0){
                 Station station = stationsRepository.findById(trainDTO.getStationId()[i]);
-                LocalTime time = LocalTime.parse(trainDTO.getTimeOnStation()[i]);
+                int time = trainDTO.getMinutesFromStartStn()[i];
                 routeService.createRoute(trainEntity, station, time);
             }
         }
