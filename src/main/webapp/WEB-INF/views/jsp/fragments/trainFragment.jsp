@@ -50,7 +50,6 @@
                     <td>
                         <input  type="number" name="minutesFromStartStn" value="0" required>
                     </td>
-
                 </tr>
             </c:forEach>
         </table>

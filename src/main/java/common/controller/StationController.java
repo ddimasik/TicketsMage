@@ -48,18 +48,16 @@ public class StationController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
-//        logger.debug("index()");
         return "redirect:/stations";
     }
 
-      // list page
     @RequestMapping(value = "/stations", method = RequestMethod.GET)
     public String showAllStations(Model model) {
  //       logger.debug("showAllStations()");
         model.addAttribute("stations", stationService.findAll());
         return "stations/list";
     }
-    // show user
+
     @RequestMapping(value = "/stations/{id}", method = RequestMethod.GET)
     public String showUser(@PathVariable("id") int id, Model model) {
 //        logger.debug("showUser() id: {}", id);
@@ -73,7 +71,6 @@ public class StationController {
         return "stations/show";
     }
 
-//    // show add user form
     @RequestMapping(value = "/stations/add", method = RequestMethod.GET)
     public String showAddUserForm(Model model) {
  //       logger.debug("showAddUserForm()");
@@ -84,8 +81,7 @@ public class StationController {
         populateDefaultModel(model);
         return "stations/stationform";
     }
-//
-    // show update form
+
     @RequestMapping(value = "/stations/{id}/update", method = RequestMethod.GET)
     public String showUpdateUserForm(@PathVariable("id") int id, Model model) {
 //        logger.debug("showUpdateUserForm() : {}", id);

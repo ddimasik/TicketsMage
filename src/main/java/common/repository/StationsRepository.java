@@ -30,12 +30,16 @@ public class StationsRepository {
     }
 
     public Station findById(Integer id){
-        return entityManager.find(Station.class, id);
+        if (id == null){
+            return null;
+        } else {
+            return entityManager.find(Station.class, id);
+        }
     }
 
-    public void save(Station station){
-        entityManager.persist(station);
-    }
+    public void save(Station station){entityManager.persist(station);}
+
+    public void update(Station station) {entityManager.merge(station);}
 
     public void delete(Station station){
         entityManager.remove(station);

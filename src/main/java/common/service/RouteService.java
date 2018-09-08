@@ -17,11 +17,12 @@ public class RouteService {
     @Autowired
     private RouteRepository routeRepository;
 
-    public void createRoute(TrainEntity trainEntity, Station station, int minutesFromStartStn){
+    public void createRoute(TrainEntity trainEntity, Station station, int minutesFromStartStn, int freeSeatsOnStn){
         RouteEntity routeEntity = new RouteEntity();
         routeEntity.setTrainEntityId(trainEntity.getId());
         routeEntity.setStationId(station.getId());
         routeEntity.setMinutesFromStartStn(minutesFromStartStn);
+        routeEntity.setFreeSeatsOnStn(freeSeatsOnStn);
         routeRepository.addRoute(routeEntity);
     }
 

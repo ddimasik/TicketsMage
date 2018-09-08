@@ -50,7 +50,7 @@ public class TrainsService {
             if (trainDTO.getMinutesFromStartStn()[i] != 0){
                 Station station = stationsRepository.findById(trainDTO.getStationId()[i]);
                 int time = trainDTO.getMinutesFromStartStn()[i];
-                routeService.createRoute(trainEntity, station, time);
+                routeService.createRoute(trainEntity, station, time, trainDTO.getCapacity());
             }
         }
     }

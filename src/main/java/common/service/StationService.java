@@ -17,7 +17,7 @@ public class StationService {
     @Autowired
     private StationsRepository stationsRepository;
 
-    @Transactional
+    @Transactional(readOnly=true)
     public Station findById(Integer id) {
         return stationsRepository.findById(id);
     }
@@ -27,25 +27,12 @@ public class StationService {
         if (findById(station.getId())==null) {
             stationsRepository.save(station);
         } else {
-            update(station);
+            stationsRepository.update(station);
         }
-
     }
 
     @Transactional
-    void update(Station station){
-        Station stToSave = new Station();
-        stToSave.setName(station.getName());
-        //logger.debug(stToSave.name);
-        stToSave.setId(station.getId());
-        //logger.debug(stToSave.id.toString());
-        stationsRepository.save(stToSave);
-    }
-
-    @Transactional
-    public void add(Station station) {
-        stationsRepository.save(station);
-    }
+    public void add(Station station) {stationsRepository.save(station);}
 
     @Transactional
     public void removeStation(int id) {
@@ -57,7 +44,7 @@ public class StationService {
         return stationsRepository.findAll();
     }
 
-    @Transactional
+    @Transactional(readOnly=true)
     public void addAll(Collection<Station> stations) {
         for (Station station : stations) {
             stationsRepository.save(station);

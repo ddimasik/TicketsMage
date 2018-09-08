@@ -14,10 +14,10 @@ public class Station {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column
     Integer id;
 
-    @Column(name = "name")
+    @Column
     String name;
 
     public boolean isNew() {
