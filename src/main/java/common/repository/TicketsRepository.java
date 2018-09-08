@@ -1,29 +1,20 @@
 package common.repository;
 
-import common.model.Ticket;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
+import common.model.TicketEntity;
 import org.springframework.stereotype.Repository;
-
-import java.util.HashMap;
-import java.util.List;
-
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Repository
 public class TicketsRepository {
-//
-//    private static final String FIND_ALL_SQL = "SELECT * from tickets";
-//
-//    @Autowired
-//    private NamedParameterJdbcOperations jdbcTemplate;
-//
-//    @Autowired
-//    private TicketsRowMapper ticketsRowMapper;
-//
-//    public List<Ticket> findAll(){
-//
-//        return jdbcTemplate.query(FIND_ALL_SQL, new HashMap<String, Object>(), ticketsRowMapper);
-//
-//    }
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public void addTicket(TicketEntity ticketEntity){
+        entityManager.persist(ticketEntity);
+    }
+
+    public TicketEntity findById(int id){return entityManager.find(TicketEntity.class, id);}
 
 }

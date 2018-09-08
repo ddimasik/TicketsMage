@@ -17,6 +17,7 @@
 <spring:url value="/allTrains" var="urlAllTrains" />
 <spring:url value="/trains/add" var="urlAddTrain" />
 <spring:url value="/stations/add" var="urlAddStation" />
+<spring:url value="/trains/search" var="urlSearchTrain" />
 
 
 <nav class="navbar navbar-inverse ">
@@ -30,6 +31,10 @@
 			</ul>
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="${urlAddTrain}">Add train</a></li>
+			</ul>
+			</ul>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="${urlSearchTrain}">Search train</a></li>
 			</ul>
 		</div>
 		<div id="navbar">

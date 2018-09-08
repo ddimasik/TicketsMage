@@ -3,23 +3,23 @@ package service;
 public class TrainsFinderCheckerServiceTests {
 //
 //    static TrainEntity trainEntity = new TrainEntity();
-//    static Passenger passenger = new Passenger();
-//    static Ticket ticket = new Ticket();
+//    static PassengerEntity passengerEntity = new PassengerEntity();
+//    static TicketEntity ticket = new TicketEntity();
 //
 //    @Before
 //    public void setUp(){
 //        trainEntity.setId(42);
-//        passenger.setId(33);
-//        ticket.setPassenger(passenger);
+//        passengerEntity.setId(33);
+//        ticket.setPassenger(passengerEntity);
 //        ticket.setTrain(trainEntity);
 //    }
 //
 //    @Test
 //    public void PassengerIsAlreadyOnTrain(){
 //        TrainsFinderCheckerService trainsFinderCheckerService = new TrainsFinderCheckerService();
-//        trainsFinderCheckerService.checkPresenceOfPassenger(trainEntity,passenger);
+//        trainsFinderCheckerService.checkPresenceOfPassenger(trainEntity,passengerEntity);
 //        Assert.assertEquals(ticket.getTrain(), trainEntity);
-//        Assert.assertEquals(ticket.getPassenger(), passenger);
+//        Assert.assertEquals(ticket.getPassenger(), passengerEntity);
 //
 //    }
 

@@ -1,5 +1,6 @@
 package common.controller;
 
+import common.dto.SearchDTO;
 import common.dto.TrainDTO;
 import common.model.TrainEntity;
 import common.service.EntityToDtoConverter;
@@ -46,6 +47,25 @@ public class TrainsController {
         model.addAttribute("stations", stationService.findAll());
         return "fragments/trainFragment";
     }
+
+
+    @GetMapping(value = "/trains/search")
+    public String searchTrain(Model model){
+        model.addAttribute("searchTrainFragment", new SearchDTO());
+        model.addAttribute("stations",stationService.findAll());
+        return "fragments/searchTrainFragment";
+    }
+
+    @GetMapping(value = "/trains/searchResult")
+    public String searchResult(@ModelAttribute("searchTrainFragment") SearchDTO searchDTO, Model model){
+        List<TrainDTO> trainDTOList = trainsService.findSuitableTrains(searchDTO);
+
+        model.addAttribute("searchResult", trainDTOList);
+
+        return "fragments/searchResultFragment";
+    }
+
+
 
     @PostMapping(value = "/allTrains")
     public String addTrain(@ModelAttribute("trainFragment") TrainDTO trainDTO){

@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Transactional
@@ -26,7 +28,8 @@ public class StationsRepository {
     }
 
     public Station findByNameIs(String name){
-        return entityManager.find(Station.class, name);
+        TypedQuery<Station> query = entityManager.createQuery("select s from Station s where s.name = :name", Station.class);
+        return  query.setParameter("name", name).getSingleResult();
     }
 
     public Station findById(Integer id){

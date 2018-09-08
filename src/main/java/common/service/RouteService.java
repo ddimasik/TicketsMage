@@ -29,4 +29,8 @@ public class RouteService {
     public List<RouteEntity> findRouteOfTrain(TrainEntity trainEntity){
         return routeRepository.findRouteOfTrain(trainEntity.getId());
     }
+
+    public List<RouteEntity> findAll(){
+        return routeRepository.findAll();
+    }
 }

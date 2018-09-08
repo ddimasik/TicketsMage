@@ -1,6 +1,6 @@
 package common.service;
 
-import common.model.Passenger;
+import common.model.PassengerEntity;
 import common.model.Station;
 import common.model.TrainEntity;
 
@@ -15,7 +15,7 @@ public class TrainsFinderCheckerService {
         return false;
     }
 
-    public boolean checkPresenceOfPassenger(TrainEntity trainEntity, Passenger passenger){
+    public boolean checkPresenceOfPassenger(TrainEntity trainEntity, PassengerEntity passengerEntity){
         return false;
     }
 

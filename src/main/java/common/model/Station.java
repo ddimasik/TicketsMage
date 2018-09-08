@@ -15,10 +15,10 @@ public class Station {
     @Id
     @GeneratedValue
     @Column
-    Integer id;
+    private Integer id;
 
     @Column
-    String name;
+    private String name;
 
     public boolean isNew() {
         return (this.id == null);

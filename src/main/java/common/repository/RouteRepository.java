@@ -21,4 +21,8 @@ public class RouteRepository {
         Query q = entityManager.createQuery("Select r FROM RouteEntity r where r.trainEntityId = :trainEntityId", RouteEntity.class);
         return q.setParameter("trainEntityId",trainEntityId).getResultList();
     }
+
+    public List<RouteEntity> findAll(){
+        return entityManager.createQuery("Select r FROM RouteEntity r", RouteEntity.class).getResultList();
+    }
 }

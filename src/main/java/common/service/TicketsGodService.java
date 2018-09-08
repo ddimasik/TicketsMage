@@ -1,6 +1,6 @@
 package common.service;
 
-import common.model.Passenger;
+import common.model.PassengerEntity;
 import common.model.Station;
 import common.model.TrainEntity;
 
@@ -12,7 +12,7 @@ public class TicketsGodService {
         return false;
     }
 
-    public boolean createTicket(TrainEntity trainEntity, Station startStation, Station endStation, Passenger passenger){
+    public boolean createTicket(TrainEntity trainEntity, Station startStation, Station endStation, PassengerEntity passengerEntity){
         return false;
 
     }

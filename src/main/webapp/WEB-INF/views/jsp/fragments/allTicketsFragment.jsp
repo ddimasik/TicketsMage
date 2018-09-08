@@ -5,22 +5,22 @@
 	<table>
 		<tr><th>Train</th><th>Passenger</th><th>Start station</th><th>End station</th><th>Date time</th></tr>
 
-		<c:forEach var="ticket" items="${tickets}">
+		<c:forEach var="ticketEntity" items="${tickets}">
 			<tr>
 				<td>
-						${ticket.train_id}
+						${ticketEntity.train_id}
 				</td>
 				<td>
-						${ticket.passenger_id}
+						${ticketEntity.passenger_id}
 				</td>
 				<td>
-						${ticket.startStation_id}
+						${ticketEntity.startStation_id}
 				</td>
 				<td>
-						${ticket.endStation_id}
+						${ticketEntity.endStation_id}
 				</td>
 				<td>
-						${ticket.dateTime}
+						${ticketEntity.dateTime}
 				</td>
 			</tr>
 		</c:forEach>
