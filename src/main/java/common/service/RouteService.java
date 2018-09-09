@@ -33,4 +33,9 @@ public class RouteService {
     public List<RouteEntity> findAll(){
         return routeRepository.findAll();
     }
+
+    public void delete(RouteEntity routeEntity){
+        routeRepository.delete(routeEntity);
+    }
+
 }

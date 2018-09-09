@@ -25,4 +25,8 @@ public class RouteRepository {
     public List<RouteEntity> findAll(){
         return entityManager.createQuery("Select r FROM RouteEntity r", RouteEntity.class).getResultList();
     }
+
+    public void delete(RouteEntity routeEntity){
+        entityManager.remove(routeEntity);
+    }
 }
