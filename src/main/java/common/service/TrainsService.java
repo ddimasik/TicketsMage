@@ -72,6 +72,7 @@ public class TrainsService {
         LocalDateTime searchEndStnDateTime = LocalDateTime.parse(searchDTO.getEndDateTime().toString());
 
         Set<RouteEntity> routeEntitySet = routeService.findAll().stream()
+                //TODO check freeSeats AFTER finding correct route
                 .filter(routeEntity -> routeEntity.getFreeSeatsOnStn() > 0 || routeEntity.getStationId() == searchDTO.getEndStn() )
                 .filter(routeEntity -> routeEntity.getStationId() == searchDTO.getStartStn() ||
                         routeEntity.getStationId() == searchDTO.getEndStn())

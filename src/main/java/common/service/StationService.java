@@ -44,7 +44,7 @@ public class StationService {
         return stationsRepository.findAll();
     }
 
-    @Transactional(readOnly=true)
+    @Transactional
     public void addAll(Collection<Station> stations) {
         for (Station station : stations) {
             stationsRepository.save(station);

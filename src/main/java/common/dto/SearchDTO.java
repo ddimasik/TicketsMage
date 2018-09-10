@@ -11,6 +11,7 @@ public class SearchDTO {
 
     private int endStn;
 
+    //TODO debug the model
     private Object startDateTime;
 
     private Object endDateTime;
