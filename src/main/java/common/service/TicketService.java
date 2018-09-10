@@ -16,12 +16,12 @@ public class TicketService {
     @Autowired
     private TicketsRepository ticketsRepository;
 
-    public void addTicket(TrainEntity trainEntity, PassengerEntity passengerEntity, Station startStn, Station endStn){
+    public void addTicket(TrainEntity trainEntity, PassengerEntity passengerEntity, Station startSation, Station endStation){
         TicketEntity ticketEntity = new TicketEntity();
         ticketEntity.setTrainId(trainEntity.getId());
         ticketEntity.setPassengerId(passengerEntity.getId());
-        ticketEntity.setStartStationId(startStn.getId());
-        ticketEntity.setEndStationId(endStn.getId());
+        ticketEntity.setStartStationId(startSation.getId());
+        ticketEntity.setEndStationId(endStation.getId());
         ticketsRepository.addTicket(ticketEntity);
     }
 

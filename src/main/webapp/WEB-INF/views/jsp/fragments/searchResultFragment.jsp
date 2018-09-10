@@ -10,16 +10,26 @@
 
 <div class="container">
     <h2>Search result</h2>
-    <form:form method="GET" action="/trains/buyTicket" modelAttribute="searchResult">
         <table class="table table-striped">
             <th><h4>Train</h4></th><th><h4>Buy ticket</h4></th>
             <c:forEach var="train" items="${searchResult}">
                 <tr>
-                    <td>${train.name}</td><td>Buy ticket</td>
+                    <td>${train.name}</td>
+                    <td>
+                        <form action="/trains/bookTicket/${train.id}" method="GET">
+                            <div>
+                                <input name="startStn" hidden value="${searchDTO.startStn}">
+                                <input name="endStn" hidden value="${searchDTO.endStn}">
+                                <input name="startDateTime" hidden value="${searchDTO.startDateTime}">
+                                <input name="endDateTime" hidden value="${searchDTO.endDateTime}">
+                            </div>
+                            <button type='submit' name='openTicketForm'>Open ticket form</button>
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
-    </form:form>
+
 </div>
 
 <script

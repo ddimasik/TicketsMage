@@ -61,11 +61,22 @@ public class TrainsController {
         List<TrainDTO> trainDTOList = trainsService.findSuitableTrains(searchDTO);
 
         model.addAttribute("searchResult", trainDTOList);
+        model.addAttribute("searchDTO", searchDTO);
 
         return "fragments/searchResultFragment";
     }
 
+    @GetMapping(value = "/trains/bookTicket/{id}")
+    public String bookTicket(@PathVariable("id") int id, @ModelAttribute("searchResultFragment") SearchDTO searchDTO, Model model ){
+        //bookTicketOnTrain(TrainId id)
+        return "fragments/bookTicketFragment";
+    }
 
+    @PostMapping(value = "/trains/buyTicket")
+    public String buyTicket(@ModelAttribute("buyTicket") Model model){
+
+        return "fragments/ticketPaper";
+    }
 
     @PostMapping(value = "/allTrains")
     public String addTrain(@ModelAttribute("trainFragment") TrainDTO trainDTO){
