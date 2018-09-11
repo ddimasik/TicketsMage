@@ -73,9 +73,9 @@ public class TrainsService {
 
         Set<RouteEntity> routeEntitySet = routeService.findAll().stream()
                 //TODO check freeSeats AFTER finding correct route
-                .filter(routeEntity -> routeEntity.getFreeSeatsOnStn() > 0 || routeEntity.getStationId() == searchDTO.getEndStn() )
-                .filter(routeEntity -> routeEntity.getStationId() == searchDTO.getStartStn() ||
-                        routeEntity.getStationId() == searchDTO.getEndStn())
+                .filter(routeEntity -> routeEntity.getFreeSeatsOnStn() > 0 || routeEntity.getStationId() == searchDTO.getEndStationId() )
+                .filter(routeEntity -> routeEntity.getStationId() == searchDTO.getStartStationId() ||
+                        routeEntity.getStationId() == searchDTO.getEndStationId())
                 .filter(routeEntity ->
                         (
                             (trainPassStationOnDateTime(routeEntity).equals(searchStartStnDateTime)) ||

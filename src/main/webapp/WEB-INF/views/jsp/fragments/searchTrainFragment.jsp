@@ -15,7 +15,7 @@
             <th></th><th>Station</th><th>Date & time</th>
             <tr>
                 <td><h3>Start</h3></td>
-                <td><form:select path="startStn"  multiple="">
+                <td><form:select path="startStationId" multiple="">
                     <c:forEach var="station" items="${stations}">
                         <form:option value="${station.id}">${station.name}</form:option>
                     </c:forEach>
@@ -25,7 +25,7 @@
             </tr>
             <tr>
                 <td><h3>End</h3></td>
-                <td><form:select path="endStn"  multiple="">
+                <td><form:select path="endStationId" multiple="">
                     <c:forEach var="station" items="${stations}">
                         <form:option value="${station.id}">${station.name}</form:option>
                     </c:forEach>

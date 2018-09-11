@@ -9,25 +9,16 @@
 <jsp:include page="header.jsp" />
 
 <div class="container">
-    <h2>Search result</h2>
-    <form:form method="POST" action="/trains/buyTicket">
+    <h2>Ticket</h2>
         <div>
-            <label>Name</label>
-            <input name="name" type="text"></div>
+            <label>Ticket ID</label><div>${passengerDTO.ticketId}</div>
         </div>
         <div>
-            <label>Surname</label>
-            <input name="surname" type="text"></div>
+            <label>Name</label><div>${passengerDTO.name}</div>
         </div>
         <div>
-            <label>Birthday</label>
-            <input name="birthday" type="date"></div>
+            <label>Surname</label><div>${passengerDTO.surname}</div>
         </div>
-        <div>
-            <input name="ticketId" hidden value="${ticketId}">
-        </div>
-        <input type="submit" value="Buy ticket" >
-    </form:form>
 </div>
 
 <script

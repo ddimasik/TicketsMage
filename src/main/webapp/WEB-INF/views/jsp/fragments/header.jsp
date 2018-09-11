@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <head>
-<title>Spring MVC Form Handling Example</title>
+<title>Tickets Mage</title>
 
 	<meta charset="UTF-8">
 

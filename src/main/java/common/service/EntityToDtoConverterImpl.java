@@ -8,7 +8,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.transaction.annotation.Transactional;
 
 
-//@Service
 @Transactional
 public class EntityToDtoConverterImpl implements EntityToDtoConverter, Converter<TrainEntity, TrainDTO> {
 

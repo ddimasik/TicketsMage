@@ -16,10 +16,10 @@
                 <tr>
                     <td>${train.name}</td>
                     <td>
-                        <form action="/trains/bookTicket/${train.id}" method="GET">
+                        <form action="/trains/bookTicket/${train.id}" method="POST">
                             <div>
-                                <input name="startStn" hidden value="${searchDTO.startStn}">
-                                <input name="endStn" hidden value="${searchDTO.endStn}">
+                                <input name="startStn" hidden value="${searchDTO.startStationId}">
+                                <input name="endStn" hidden value="${searchDTO.endStationId}">
                                 <input name="startDateTime" hidden value="${searchDTO.startDateTime}">
                                 <input name="endDateTime" hidden value="${searchDTO.endDateTime}">
                             </div>
