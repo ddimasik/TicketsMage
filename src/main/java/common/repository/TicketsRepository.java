@@ -15,6 +15,10 @@ public class TicketsRepository {
         entityManager.persist(ticketEntity);
     }
 
+    public void updateTicket(TicketEntity ticketEntity){
+        entityManager.merge(ticketEntity);
+    }
+
     public TicketEntity findById(int id){return entityManager.find(TicketEntity.class, id);}
 
 }

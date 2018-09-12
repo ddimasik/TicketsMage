@@ -11,13 +11,19 @@
 <div class="container">
     <h2>Ticket</h2>
         <div>
-            <label>Ticket ID</label><div>${passengerDTO.ticketId}</div>
+            <label>Ticket ID</label><div>${ticketDTO.id}</div>
         </div>
         <div>
-            <label>Name</label><div>${passengerDTO.name}</div>
+            <label>trainId</label><div>${ticketDTO.trainId}</div>
         </div>
         <div>
-            <label>Surname</label><div>${passengerDTO.surname}</div>
+            <label>passengerId</label><div>${ticketDTO.passengerId}</div>
+        </div>
+        <div>
+            <label>startStationId</label><div>${ticketDTO.startStationId}</div>
+        </div>
+        <div>
+            <label>endStationId</label><div>${ticketDTO.endStationId}</div>
         </div>
 </div>
 

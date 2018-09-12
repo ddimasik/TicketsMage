@@ -18,10 +18,10 @@
                     <td>
                         <form action="/trains/bookTicket/${train.id}" method="POST">
                             <div>
-                                <input name="startStn" hidden value="${searchDTO.startStationId}">
-                                <input name="endStn" hidden value="${searchDTO.endStationId}">
-                                <input name="startDateTime" hidden value="${searchDTO.startDateTime}">
-                                <input name="endDateTime" hidden value="${searchDTO.endDateTime}">
+                                <input name="startStationId"  value="${searchDTO.startStationId}">
+                                <input name="endStationId"  value="${searchDTO.endStationId}">
+                                <input name="startDateTime"  value="${searchDTO.startDateTime}">
+                                <input name="endDateTime"  value="${searchDTO.endDateTime}">
                             </div>
                             <button type='submit' name='openTicketForm'>Open ticket form</button>
                         </form>

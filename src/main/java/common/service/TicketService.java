@@ -3,7 +3,6 @@ package common.service;
 import common.dto.PassengerDTO;
 import common.dto.SearchDTO;
 import common.model.PassengerEntity;
-import common.model.Station;
 import common.model.TicketEntity;
 import common.repository.PassengerRepository;
 import common.repository.TicketsRepository;
@@ -27,16 +26,14 @@ public class TicketService {
         3. return ticketEntity
      * */
     public TicketEntity bookTicketOnTrain(int trainId, SearchDTO searchDTO){
-        TicketEntity ticketEntity = createTicket(trainId, searchDTO.getStartStationId(), searchDTO.getEndStationId());
-        return ticketEntity;
+        return createTicket(trainId, searchDTO.getStartStationId(), searchDTO.getEndStationId());
     }
 
     public TicketEntity addPassengerToTicket(PassengerDTO passengerDTO){
-        PassengerEntity passengerEntity = passengerRepository.createPassengerFromDTO(passengerDTO);
-        //TODO find passengerID and add to ticket
-        int passengerId = passengerRepository.
+        PassengerEntity passengerEntity = passengerRepository.findByDTO(passengerDTO);
         TicketEntity ticketEntity = ticketsRepository.findById(passengerDTO.getTicketId());
         ticketEntity.setPassengerId(passengerEntity.getId());
+        ticketsRepository.updateTicket(ticketEntity);
         return ticketEntity;
     }
 

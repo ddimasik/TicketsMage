@@ -13,18 +13,18 @@
     <form:form method="POST" action="/trains/buyTicket">
         <div>
             <label>Name</label>
-            <input name="name" type="text"></div>
+            <input name="name" required type="text"></div>
         </div>
         <div>
             <label>Surname</label>
-            <input name="surname" type="text"></div>
+            <input name="surname" required type="text"></div>
         </div>
         <div>
             <label>Birthday</label>
-            <input name="birthday" type="date"></div>
+            <input name="birthday" required type="date"></div>
         </div>
         <div>
-            <input name="ticketId" hidden value="${ticketId}">
+            <input name="ticketId"  value="${ticketId}">
         </div>
         <input type="submit" value="Buy ticket" >
     </form:form>

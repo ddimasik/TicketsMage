@@ -5,6 +5,8 @@ import lombok.Setter;
 
 @Setter
 @Getter
+//TODO    SearchDTO лучше переименовать, чтобы было понятно, что это В САМОМ ДЕЛЕ параметры поиска поезда
+
 public class SearchDTO {
 
     private int startStationId;
