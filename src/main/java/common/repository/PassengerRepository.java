@@ -1,37 +1,43 @@
 package common.repository;
 
+import common.converters.dtoToEntity.PassengerDtoToEntityConverter;
 import common.dto.PassengerDTO;
 import common.model.PassengerEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.time.LocalDate;
+import java.util.List;
 
+//TODO повесить на репозтиториях @Transactional(propagation = Propagation.MANDATORY
 @Repository
 public class PassengerRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    //TODO разделить на два метода, конвертить в конвертере
-    public PassengerEntity createPassengerFromDTO(PassengerDTO passengerDTO){
-        PassengerEntity passengerEntity = new PassengerEntity();
-        passengerEntity.setName(passengerDTO.getName());
-        passengerEntity.setSurname(passengerDTO.getSurname());
-        passengerEntity.setBirthday(LocalDate.parse(passengerDTO.getBirthday().toString()));
-        entityManager.persist(passengerEntity);
+    @Autowired
+    private PassengerDtoToEntityConverter passengerDtoToEntityConverter;
+
+    public PassengerEntity exists(PassengerDTO passengerDTO){
+        TypedQuery<PassengerEntity> query = entityManager.createQuery("select p from PassengerEntity p where " +
+                 "p.name = :name and " +
+                 "p.surname = :surname and " +
+                 "p.birthday = :birthday" , PassengerEntity.class);
+        PassengerEntity passengerEntity = query.setParameter("name", passengerDTO.getName())
+                                                         .setParameter("surname", passengerDTO.getSurname())
+                                                         .setParameter("birthday", LocalDate.parse(passengerDTO.getBirthday().toString())).getSingleResult();
         return passengerEntity;
     }
 
-    public PassengerEntity findByDTO(PassengerDTO passengerDTO){
-        //TODO add surname and birthday
-        TypedQuery<PassengerEntity> query = entityManager.createQuery("select p from PassengerEntity p " +
-                "where p.name = :name", PassengerEntity.class);
-        return query.setParameter("name", passengerDTO.getName()).getSingleResult();
+    public PassengerEntity createPassengerFromDTO(PassengerDTO passengerDTO){
+        PassengerEntity passengerEntity = passengerDtoToEntityConverter.convert(passengerDTO);
+        entityManager.persist(passengerEntity);
+        return passengerEntity;
     }
-
 
     public void addPassenger(PassengerEntity passengerEntity){
         entityManager.persist(passengerEntity);

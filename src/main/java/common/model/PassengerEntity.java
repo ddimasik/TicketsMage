@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Getter
 public class PassengerEntity {
 
+    //TODO Можно id убрать в общий класс
     @Id
     @GeneratedValue
     @Column

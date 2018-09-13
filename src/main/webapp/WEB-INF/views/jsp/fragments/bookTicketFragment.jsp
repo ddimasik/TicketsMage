@@ -9,19 +9,30 @@
 <jsp:include page="header.jsp" />
 
 <div class="container">
-    <h2>Search result</h2>
+    <h2>Enter passenger's data</h2>
+
+    <c:if test="${not empty msg}">
+        <div class="alert alert-${css} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-label="Close">
+                <span aria-hidden="true">Clear</span>
+            </button>
+            <strong>${msg}</strong>
+        </div>
+    </c:if>
+
     <form:form method="POST" action="/trains/buyTicket">
         <div>
             <label>Name</label>
-            <input name="name" required type="text"></div>
+            <input name="name" required type="text" value="${PassengerDTO.name}"></div>
         </div>
         <div>
             <label>Surname</label>
-            <input name="surname" required type="text"></div>
+            <input name="surname" required type="text" value="${PassengerDTO.surname}"></div>
         </div>
         <div>
             <label>Birthday</label>
-            <input name="birthday" required type="date"></div>
+            <input name="birthday" required type="date" value="${PassengerDTO.birthday}"></div>
         </div>
         <div>
             <input name="ticketId"  value="${ticketId}">

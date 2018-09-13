@@ -88,5 +88,6 @@
 
     <beans:bean id="entityToDtoConverter" class="common.service.EntityToDtoConverterImpl" />
     <beans:bean id="ticketEntityToDtoConverter" class="common.service.TicketEntityToDtoConverterImpl" />
+    <beans:bean id="passengerDtoToEntityConverter" class="common.converters.dtoToEntity.PassengerDtoToEntityConverterImpl" />
 
 </beans:beans>

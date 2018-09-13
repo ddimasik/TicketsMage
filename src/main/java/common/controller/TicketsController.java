@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.time.LocalDate;
 
 @Controller
 public class TicketsController {
@@ -33,6 +32,7 @@ public class TicketsController {
     public String bookTicket(@PathVariable("id") int trainId, @ModelAttribute("searchResultFragment") SearchDTO searchDTO, Model model ){
         //TODO чот я не поняла, зачем ты передаешь searchDTO, выглядит не очень
         TicketEntity ticketEntity = ticketService.bookTicketOnTrain(trainId, searchDTO);
+        model.addAttribute("msg", "");
         model.addAttribute("ticketId", ticketEntity.getId());
         model.addAttribute("PassengerDTO", new PassengerDTO());
         return "fragments/bookTicketFragment";
@@ -40,12 +40,17 @@ public class TicketsController {
 
     @PostMapping(value = "/trains/buyTicket")
     public String buyTicket(@ModelAttribute("buyTicket") PassengerDTO passengerDTO, Model model){
-        LocalDate birthday = LocalDate.parse(passengerDTO.getBirthday().toString());
-        passengerService.createPassenger(passengerDTO.getName(), passengerDTO.getSurname(), birthday);
-        TicketEntity ticketEntity = ticketService.addPassengerToTicket(passengerDTO);
-        TicketDTO ticketDTO = ticketEntityToDtoConverter.convert(ticketEntity);
-        model.addAttribute("ticketDTO",ticketDTO);
-        return "fragments/ticketPaperFragment";
+        if (ticketService.validate(passengerDTO)){
+            TicketDTO ticketDTO = ticketService.buyTicket(passengerDTO);
+            model.addAttribute("ticketDTO",ticketDTO);
+            return "fragments/ticketPaperFragment";
+        } else {
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "This passenger already is on the train. Enter another data, please.");
+            model.addAttribute("ticketId", passengerDTO.getTicketId());
+            model.addAttribute("PassengerDTO", passengerDTO);
+            return "fragments/bookTicketFragment";
+        }
     }
 
     @PostMapping(value = "/trains/cancelTicket")

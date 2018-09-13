@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
+//TODO повесить на сервисах @Transactional
 @Service
 @Transactional
 public class TrainsService {
