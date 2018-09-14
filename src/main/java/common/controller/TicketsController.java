@@ -40,10 +40,12 @@ public class TicketsController {
 
     @PostMapping(value = "/trains/buyTicket")
     public String buyTicket(@ModelAttribute("buyTicket") PassengerDTO passengerDTO, Model model){
+
         if (ticketService.validate(passengerDTO)){
             TicketDTO ticketDTO = ticketService.buyTicket(passengerDTO);
             model.addAttribute("ticketDTO",ticketDTO);
             return "fragments/ticketPaperFragment";
+
         } else {
             model.addAttribute("css", "danger");
             model.addAttribute("msg", "This passenger already is on the train. Enter another data, please.");

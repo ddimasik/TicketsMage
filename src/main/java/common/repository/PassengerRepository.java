@@ -1,6 +1,6 @@
 package common.repository;
 
-import common.converters.dtoToEntity.PassengerDtoToEntityConverter;
+import common.converters.dto_to_entity.PassengerDtoToEntityConverter;
 import common.dto.PassengerDTO;
 import common.model.PassengerEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +22,17 @@ public class PassengerRepository {
     @Autowired
     private PassengerDtoToEntityConverter passengerDtoToEntityConverter;
 
-    public PassengerEntity exists(PassengerDTO passengerDTO){
+    public List<PassengerEntity> findPassengerByDTO(PassengerDTO passengerDTO){
         TypedQuery<PassengerEntity> query = entityManager.createQuery("select p from PassengerEntity p where " +
                  "p.name = :name and " +
                  "p.surname = :surname and " +
                  "p.birthday = :birthday" , PassengerEntity.class);
-        PassengerEntity passengerEntity = query.setParameter("name", passengerDTO.getName())
+        return query.setParameter("name", passengerDTO.getName())
                                                          .setParameter("surname", passengerDTO.getSurname())
-                                                         .setParameter("birthday", LocalDate.parse(passengerDTO.getBirthday().toString())).getSingleResult();
-        return passengerEntity;
+                                                         .setParameter("birthday", LocalDate.parse(passengerDTO.getBirthday().toString())).getResultList();
     }
 
+    //TODO лучше назвать savePassengerFromDTO, чтобы было понятно, что ты аффектишь базу
     public PassengerEntity createPassengerFromDTO(PassengerDTO passengerDTO){
         PassengerEntity passengerEntity = passengerDtoToEntityConverter.convert(passengerDTO);
         entityManager.persist(passengerEntity);

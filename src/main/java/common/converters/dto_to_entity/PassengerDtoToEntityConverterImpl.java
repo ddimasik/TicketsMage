@@ -1,4 +1,4 @@
-package common.converters.dtoToEntity;
+package common.converters.dto_to_entity;
 
 import common.dto.PassengerDTO;
 import common.model.PassengerEntity;

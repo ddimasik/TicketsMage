@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -27,27 +29,34 @@ public class TicketService {
 
 
     public boolean validate(PassengerDTO passengerDTO){
-        boolean validationResult = false;
-        PassengerEntity passengerEntity = passengerRepository.exists(passengerDTO);
-        if (passengerEntity == null){
-            validationResult = true;
 
-            // ТУТ надо поискать что в этом поезеде нет такого пассажира ААА"""
-        } else if (passengerDTO.getTicketId() == passengerEntity )
+        List<PassengerEntity> passengerEntityList = passengerRepository.findPassengerByDTO(passengerDTO);
+        if (passengerEntityList.isEmpty()){
+            return true;
 
-
-        return validationResult;
+        } else if (passengerEntityList.size() > 1){
+            //TODO catch error
+            // Exception: result returns more than one elements.
+            // org.hibernate.jpa.internal.QueryImpl.getSingleResult(QueryImpl.java:505)
+            // common.repository.PassengerRepository.findPassengerByDTO(PassengerRepository.java:32)
+            return false;
+        }
+        return (!ticketsRepository.checkIfPassengerExistsOnTrain(passengerEntityList.get(0), passengerDTO.getTicketId()));
     }
-
 
     public TicketDTO buyTicket(PassengerDTO passengerDTO){
 
-        PassengerEntity passengerEntity = passengerRepository.createPassengerFromDTO(passengerDTO);
+        List<PassengerEntity> passengerEntityList = passengerRepository.findPassengerByDTO(passengerDTO);
+        PassengerEntity passengerEntity;
+        if (passengerEntityList.isEmpty()) {
+            passengerEntity = passengerRepository.createPassengerFromDTO(passengerDTO);
+        } else {
+            passengerEntity = passengerEntityList.get(0);
+        }
         TicketEntity ticketEntity = ticketsRepository.findById(passengerDTO.getTicketId());
         addPassengerToTicket(passengerEntity, ticketEntity);
         return ticketEntityToDtoConverter.convert(ticketEntity);
     }
-
 
     /**
      *  1. create new ticketEntity
