@@ -5,6 +5,7 @@ import common.dto.SearchDTO;
 import common.dto.TicketDTO;
 import common.model.TicketEntity;
 import common.service.PassengerService;
+import common.service.StationService;
 import common.service.TicketEntityToDtoConverter;
 import common.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +28,29 @@ public class TicketsController {
     @Autowired
     private TicketEntityToDtoConverter ticketEntityToDtoConverter;
 
+    @Autowired
+    private StationService stationService;
 
+
+    /** bookingResult can be either thicketId or -1 that means that no ticket is available */
     @PostMapping(value = "/trains/bookTicket/{id}")
     public String bookTicket(@PathVariable("id") int trainId, @ModelAttribute("searchResultFragment") SearchDTO searchDTO, Model model ){
         //TODO чот я не поняла, зачем ты передаешь searchDTO, выглядит не очень
-        TicketEntity ticketEntity = ticketService.bookTicketOnTrain(trainId, searchDTO);
-        model.addAttribute("msg", "");
-        model.addAttribute("ticketId", ticketEntity.getId());
-        model.addAttribute("PassengerDTO", new PassengerDTO());
-        return "fragments/bookTicketFragment";
+
+        int bookingResult = ticketService.bookTicketOnTrain(trainId, searchDTO);
+
+        if (bookingResult != -1){
+            model.addAttribute("msg", "");
+            model.addAttribute("ticketId", bookingResult);
+            model.addAttribute("PassengerDTO", new PassengerDTO());
+            return "fragments/bookTicketFragment";
+        } else {
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "No available tickets, try changing search, please.");
+            model.addAttribute("searchTrainFragment", new SearchDTO());
+            model.addAttribute("stations",stationService.findAll());
+            return "fragments/searchTrainFragment";
+        }
     }
 
     @PostMapping(value = "/trains/buyTicket")

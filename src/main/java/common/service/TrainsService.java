@@ -1,5 +1,7 @@
 package common.service;
 
+import common.converters.entity_to_dto.TrainEntityToDtoConverter;
+import common.converters.entity_to_dto.TrainEntityToDtoConverterImpl;
 import common.dto.SearchDTO;
 import common.dto.TrainDTO;
 import common.model.RouteEntity;
@@ -29,6 +31,9 @@ public class TrainsService {
 
     @Autowired
     private RouteService routeService;
+
+    @Autowired
+    private TrainEntityToDtoConverter trainEntityToDtoConverter;
 
     public TrainEntity findById(Integer id) {
         return trainsRepository.findById(id);
@@ -69,32 +74,14 @@ public class TrainsService {
 
     /** Suitable train: goes through start & end stations, has seat, bound in time*/
     public List<TrainDTO> findSuitableTrains(SearchDTO searchDTO){
-        LocalDateTime searchStartStnDateTime = LocalDateTime.parse(searchDTO.getStartDateTime().toString());
-        LocalDateTime searchEndStnDateTime = LocalDateTime.parse(searchDTO.getEndDateTime().toString());
-
-        Set<RouteEntity> routeEntitySet = routeService.findAll().stream()
-                //TODO check freeSeats AFTER finding correct route
-                .filter(routeEntity -> routeEntity.getFreeSeatsOnStn() > 0 || routeEntity.getStationId() == searchDTO.getEndStationId() )
-                .filter(routeEntity -> routeEntity.getStationId() == searchDTO.getStartStationId() ||
-                        routeEntity.getStationId() == searchDTO.getEndStationId())
-                .filter(routeEntity ->
-                        (
-                            (trainPassStationOnDateTime(routeEntity).equals(searchStartStnDateTime)) ||
-                            (trainPassStationOnDateTime(routeEntity).isBefore(searchStartStnDateTime))
-                        ) ||
-                        (
-                            (trainPassStationOnDateTime(routeEntity).isAfter(searchEndStnDateTime)) ||
-                            (trainPassStationOnDateTime(routeEntity).equals(searchEndStnDateTime))
-                        )
-                )
-                .collect(Collectors.toCollection( () -> new TreeSet<>(Comparator.comparing(RouteEntity::getTrainEntityId))));
 
         List<TrainDTO> trainDTOList = new LinkedList<>();
-        for (RouteEntity routeEntity: routeEntitySet) {
-            TrainDTO trainDTO = new TrainDTO();
-            trainDTO.setId(routeEntity.getTrainEntityId());
-            trainDTO.setName(trainsRepository.findById(routeEntity.getTrainEntityId()).getName());
-            trainDTOList.add(trainDTO);
+
+        List<TrainEntity> trainEntityList = trainsRepository.getAllTrains();
+        for (TrainEntity trainEntity: trainEntityList){
+            if (routeService.checkIfIsFreeSeatOnEachStation(trainEntity.getId(), searchDTO)){
+                trainDTOList.add(trainEntityToDtoConverter.convert(trainEntity));
+            }
         }
         return trainDTOList;
     }

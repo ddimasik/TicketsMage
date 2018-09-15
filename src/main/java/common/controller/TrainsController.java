@@ -3,7 +3,7 @@ package common.controller;
 import common.dto.SearchDTO;
 import common.dto.TrainDTO;
 import common.model.TrainEntity;
-import common.service.EntityToDtoConverter;
+import common.converters.entity_to_dto.TrainEntityToDtoConverter;
 import common.service.StationService;
 import common.service.TrainsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class TrainsController {
     private StationService stationService;
 
     @Autowired
-    private EntityToDtoConverter entityToDtoConverter;
+    private TrainEntityToDtoConverter trainEntityToDtoConverter;
 
     @GetMapping(value = "/allTrains")
     @Transactional
@@ -35,7 +35,7 @@ public class TrainsController {
 
         List<TrainDTO> trainDTOList = new LinkedList<>();
         for (TrainEntity trainEntity : trainsService.findAll()) {
-            trainDTOList.add(entityToDtoConverter.convert(trainEntity));
+            trainDTOList.add(trainEntityToDtoConverter.convert(trainEntity));
         }
         model.addAttribute("trains", trainDTOList);
         return "fragments/allTrainsFragment";
@@ -58,12 +58,23 @@ public class TrainsController {
 
     @GetMapping(value = "/trains/searchResult")
     public String searchResult(@ModelAttribute("searchTrainFragment") SearchDTO searchDTO, Model model){
+
         List<TrainDTO> trainDTOList = trainsService.findSuitableTrains(searchDTO);
 
-        model.addAttribute("searchResult", trainDTOList);
-        model.addAttribute("searchDTO", searchDTO);
+        if (trainDTOList.isEmpty()){
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "No available tickets, try changing search, please.");
+            model.addAttribute("searchTrainFragment", searchDTO);
+            model.addAttribute("stations",stationService.findAll());
+            return "fragments/searchTrainFragment";
 
-        return "fragments/searchResultFragment";
+        } else {
+            model.addAttribute("searchResult", trainDTOList);
+            model.addAttribute("searchDTO", searchDTO);
+            return "fragments/searchResultFragment";
+        }
+
+
     }
 
     @PostMapping(value = "/allTrains")

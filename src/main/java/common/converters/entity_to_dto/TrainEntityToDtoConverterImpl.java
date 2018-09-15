@@ -1,15 +1,16 @@
-package common.service;
+package common.converters.entity_to_dto;
 
 import common.dto.TrainDTO;
 import common.model.RouteEntity;
 import common.model.TrainEntity;
+import common.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Transactional
-public class EntityToDtoConverterImpl implements EntityToDtoConverter, Converter<TrainEntity, TrainDTO> {
+public class TrainEntityToDtoConverterImpl implements TrainEntityToDtoConverter, Converter<TrainEntity, TrainDTO> {
 
     @Autowired
     private RouteService routeService;

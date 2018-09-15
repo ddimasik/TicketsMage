@@ -81,12 +81,12 @@
     <beans:bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
         <beans:property name="converters">
             <beans:list>
-                <beans:ref bean="entityToDtoConverter"/>
+                <beans:ref bean="trainEntityToDtoConverter"/>
             </beans:list>
         </beans:property>
     </beans:bean>
 
-    <beans:bean id="entityToDtoConverter" class="common.service.EntityToDtoConverterImpl" />
+    <beans:bean id="trainEntityToDtoConverter" class="common.converters.entity_to_dto.TrainEntityToDtoConverterImpl" />
     <beans:bean id="ticketEntityToDtoConverter" class="common.service.TicketEntityToDtoConverterImpl" />
     <beans:bean id="passengerDtoToEntityConverter" class="common.converters.dto_to_entity.PassengerDtoToEntityConverterImpl" />
 

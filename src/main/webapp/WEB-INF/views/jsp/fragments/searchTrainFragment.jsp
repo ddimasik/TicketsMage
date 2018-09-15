@@ -10,6 +10,18 @@
 
 <div class="container">
     <h2>Search train</h2>
+
+    <c:if test="${not empty msg}">
+        <div class="alert alert-${css} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-label="Close">
+                <span aria-hidden="true">Clear</span>
+            </button>
+            <strong>${msg}</strong>
+        </div>
+    </c:if>
+
+
     <form:form method="GET" action="/trains/searchResult" modelAttribute="searchTrainFragment">
         <table class="table table-striped">
             <th></th><th>Station</th><th>Date & time</th>
@@ -21,7 +33,7 @@
                     </c:forEach>
                 </form:select>
                 </td>
-                <td><input name="startDateTime" type="datetime-local" required="required"/></td>
+                <td><input name="startDateTime" type="datetime-local" required="required" "/></td>
             </tr>
             <tr>
                 <td><h3>End</h3></td>
@@ -31,7 +43,7 @@
                     </c:forEach>
                 </form:select>
                 </td>
-                <td><input name="endDateTime" type="datetime-local" required="required"/></td>
+                <td><input name="endDateTime" type="datetime-local" required="required" "/></td>
             </tr>
         </table>
         <input type="submit" value="Search">

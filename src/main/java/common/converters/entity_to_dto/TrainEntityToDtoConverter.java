@@ -1,9 +1,9 @@
-package common.service;
+package common.converters.entity_to_dto;
 
 import common.dto.TrainDTO;
 import common.model.TrainEntity;
 
-public interface EntityToDtoConverter  {
+public interface TrainEntityToDtoConverter {
 
    TrainDTO convert(TrainEntity trainEntity);
 

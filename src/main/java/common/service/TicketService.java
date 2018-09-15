@@ -4,6 +4,7 @@ import common.dto.PassengerDTO;
 import common.dto.SearchDTO;
 import common.dto.TicketDTO;
 import common.model.PassengerEntity;
+import common.model.RouteEntity;
 import common.model.TicketEntity;
 import common.repository.PassengerRepository;
 import common.repository.TicketsRepository;
@@ -26,6 +27,9 @@ public class TicketService {
 
     @Autowired
     private TicketEntityToDtoConverter ticketEntityToDtoConverter;
+
+    @Autowired
+    private RouteService routeService;
 
 
     public boolean validate(PassengerDTO passengerDTO){
@@ -63,8 +67,13 @@ public class TicketService {
         2. reduce free seats on each station on the route from searchDTO
         3. return ticketEntity
      * */
-    public TicketEntity bookTicketOnTrain(int trainId, SearchDTO searchDTO){
-        return createTicket(trainId, searchDTO.getStartStationId(), searchDTO.getEndStationId());
+    public int bookTicketOnTrain(int trainId, SearchDTO searchDTO){
+
+        if (routeService.checkIfIsFreeSeatOnEachStation(trainId, searchDTO)) {
+            return createTicket(trainId, searchDTO).getId();
+        } else {
+            return -1;
+        }
     }
 
     public void addPassengerToTicket(PassengerEntity passengerEntity, TicketEntity ticketEntity ){
@@ -72,14 +81,13 @@ public class TicketService {
         ticketsRepository.updateTicket(ticketEntity);
     }
 
-
-
-    public TicketEntity createTicket(int trainId, int startSationId, int endStationId){
+    public TicketEntity createTicket(int trainId, SearchDTO searchDTO){
         TicketEntity ticketEntity = new TicketEntity();
         ticketEntity.setTrainId(trainId);
-        ticketEntity.setStartStationId(startSationId);
-        ticketEntity.setEndStationId(endStationId);
+        ticketEntity.setStartStationId(searchDTO.getStartStationId());
+        ticketEntity.setEndStationId(searchDTO.getEndStationId());
         ticketsRepository.addTicket(ticketEntity);
+        routeService.decreaseFreeSeats(trainId, searchDTO);
         return ticketEntity;
     }
 
