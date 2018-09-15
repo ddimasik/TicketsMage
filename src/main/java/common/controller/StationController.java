@@ -16,6 +16,8 @@ import common.validator.StationFormValidator;
 @Controller
 public class StationController {
 
+    private static final String STATIONFORM = "stations/stationform";
+
     @Autowired
     private StationService stationService;
 
@@ -56,7 +58,7 @@ public class StationController {
         station.setName("Gadjukino");
         model.addAttribute("stationForm", station);
         populateDefaultModel(model);
-        return "stations/stationform";
+        return STATIONFORM;
     }
 
     @GetMapping(value = "/stations/{id}/update")
@@ -64,7 +66,7 @@ public class StationController {
         Station station = stationService.findById(id);
         model.addAttribute("stationForm", station);
         populateDefaultModel(model);
-        return "stations/stationform";
+        return STATIONFORM;
     }
 
     @PostMapping(value = "/stations")
@@ -73,7 +75,7 @@ public class StationController {
                                    final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             populateDefaultModel(model);
-            return "stations/stationform";
+            return STATIONFORM;
         } else {
             redirectAttributes.addFlashAttribute("css", "success");
             if(station.isNew()){

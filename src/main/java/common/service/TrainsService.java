@@ -1,12 +1,12 @@
 package common.service;
 
 import common.converters.entity_to_dto.TrainEntityToDtoConverter;
-import common.converters.entity_to_dto.TrainEntityToDtoConverterImpl;
 import common.dto.SearchDTO;
 import common.dto.TrainDTO;
 import common.model.RouteEntity;
 import common.model.Station;
 import common.model.TrainEntity;
+import common.repository.RouteRepository;
 import common.repository.StationsRepository;
 import common.repository.TrainsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 //TODO повесить на сервисах @Transactional
 @Service
@@ -28,6 +27,9 @@ public class TrainsService {
 
     @Autowired
     private StationsRepository stationsRepository;
+
+    @Autowired
+    private RouteRepository routeRepository;
 
     @Autowired
     private RouteService routeService;
@@ -79,7 +81,10 @@ public class TrainsService {
 
         List<TrainEntity> trainEntityList = trainsRepository.getAllTrains();
         for (TrainEntity trainEntity: trainEntityList){
-            if (routeService.checkIfIsFreeSeatOnEachStation(trainEntity.getId(), searchDTO)){
+
+            if (routeRepository.checkIfRouteIsCorrect(trainEntity, searchDTO)
+             && routeRepository.checkIfRouteTimeIsCorrect(trainEntity, searchDTO)
+             && routeService.checkIfIsFreeSeatOnEachStation(trainEntity.getId(), searchDTO)){
                 trainDTOList.add(trainEntityToDtoConverter.convert(trainEntity));
             }
         }

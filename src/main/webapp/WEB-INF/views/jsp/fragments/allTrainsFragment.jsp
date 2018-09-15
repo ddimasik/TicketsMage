@@ -11,7 +11,7 @@
 <div class="container">
     <h2>All trains list</h2>
 	<table class="table table-striped" width="80%" >
-        <tr><th>ID</th><th>Name</th><th>Capacity</th><th>Start</th><th>Route</th><th>Delete train</th></tr>
+        <tr><th>ID</th><th>Name</th><th>Capacity</th><th>Start</th><th>Station</th><th>Time</th><th>Delete train</th></tr>
 
 		<c:forEach var="train" items="${trains}">
 
@@ -29,12 +29,15 @@
                         ${train.startDateTime}
                 </td>
                 <td>
-                        <c:forEach var="stationId" items="${train.stationId}">
-                            <span>StationID: ${stationId}</span>
+                        <c:forEach var="stationId" items="${train.stationName}">
+                            <span>${stationId}</span>
+                            <br>
                         </c:forEach>
-                        <br>
-                        <c:forEach var="minutesFromStartStn" items="${train.minutesFromStartStn}">
-                            <span>Time: ${minutesFromStartStn}</span>
+                </td>
+                <td>
+                        <c:forEach var="minutesFromStartStn" items="${train.timeOnStation}">
+                            <span>${minutesFromStartStn}</span>
+                            <br>
                         </c:forEach>
                 </td>
                 <td>

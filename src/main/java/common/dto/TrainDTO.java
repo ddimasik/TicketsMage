@@ -17,6 +17,10 @@ public class TrainDTO {
 
     private int [] stationId;
 
+    private String [] stationName;
+
+    private Object [] timeOnStation;
+
     private int [] minutesFromStartStn;
 
     private Object startDateTime;

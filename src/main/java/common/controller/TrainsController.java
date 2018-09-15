@@ -20,6 +20,8 @@ import java.util.List;
 @Controller
 public class TrainsController {
 
+    private static final String STATIONS = "stations";
+
     @Autowired
     private TrainsService trainsService;
 
@@ -44,7 +46,7 @@ public class TrainsController {
     @GetMapping(value = "/trains/add")
     public String showTrain(Model model) {
         model.addAttribute("trainFragment", new TrainDTO());
-        model.addAttribute("stations", stationService.findAll());
+        model.addAttribute(STATIONS, stationService.findAll());
         return "fragments/trainFragment";
     }
 
@@ -52,7 +54,7 @@ public class TrainsController {
     @GetMapping(value = "/trains/search")
     public String searchTrain(Model model){
         model.addAttribute("searchTrainFragment", new SearchDTO());
-        model.addAttribute("stations",stationService.findAll());
+        model.addAttribute(STATIONS,stationService.findAll());
         return "fragments/searchTrainFragment";
     }
 
@@ -65,7 +67,7 @@ public class TrainsController {
             model.addAttribute("css", "danger");
             model.addAttribute("msg", "No available tickets, try changing search, please.");
             model.addAttribute("searchTrainFragment", searchDTO);
-            model.addAttribute("stations",stationService.findAll());
+            model.addAttribute(STATIONS,stationService.findAll());
             return "fragments/searchTrainFragment";
 
         } else {

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +23,7 @@ public class RouteService {
 
     @Autowired
     private TrainsRepository trainsRepository;
+
 
     public void decreaseFreeSeats(int trainId, SearchDTO searchDTO){
 

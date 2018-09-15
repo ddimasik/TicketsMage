@@ -3,7 +3,6 @@ package common.controller;
 import common.dto.PassengerDTO;
 import common.dto.SearchDTO;
 import common.dto.TicketDTO;
-import common.model.TicketEntity;
 import common.service.PassengerService;
 import common.service.StationService;
 import common.service.TicketEntityToDtoConverter;

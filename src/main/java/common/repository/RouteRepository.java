@@ -17,6 +17,34 @@ public class RouteRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
+
+    public boolean checkIfRouteTimeIsCorrect(TrainEntity trainEntity, SearchDTO searchDTO){
+        LocalDateTime trainPassSearchStartStation = findTimeTrainOnStation(trainEntity, searchDTO.getStartStationId());
+        LocalDateTime trainPassSearchEndStation = findTimeTrainOnStation(trainEntity, searchDTO.getEndStationId());
+
+        LocalDateTime searchStartTime = LocalDateTime.parse(searchDTO.getStartDateTime().toString());
+        LocalDateTime searchEndTime = LocalDateTime.parse(searchDTO.getEndDateTime().toString());
+
+        return  (trainPassSearchStartStation.isAfter(searchStartTime) || trainPassSearchStartStation.equals(searchStartTime)) && trainPassSearchEndStation.isBefore(searchEndTime);
+    }
+
+    public boolean checkIfRouteIsCorrect(TrainEntity trainEntity, SearchDTO searchDTO){
+        return (
+                checkIfTrainPassStation(trainEntity, searchDTO.getStartStationId())
+             && checkIfTrainPassStation(trainEntity, searchDTO.getEndStationId())
+             && (findTimeTrainOnStation(trainEntity, searchDTO.getStartStationId()).isBefore(findTimeTrainOnStation(trainEntity, searchDTO.getEndStationId()))));
+    }
+
+    public boolean checkIfTrainPassStation(TrainEntity trainEntity, int stationId){
+
+        TypedQuery<RouteEntity> query = entityManager.createQuery("select r from RouteEntity r where " +
+                "r.trainEntityId = :trainId and r.stationId = :stationId", RouteEntity.class);
+
+        return (!query.setParameter("trainId",trainEntity.getId())
+                .setParameter("stationId",stationId).getResultList().isEmpty());
+
+    }
+
     public LocalDateTime findTimeTrainOnStation(TrainEntity trainEntity, int stationId){
 
         LocalDateTime trainStart = trainEntity.getStartDateTime();

@@ -4,7 +4,6 @@ import common.dto.PassengerDTO;
 import common.dto.SearchDTO;
 import common.dto.TicketDTO;
 import common.model.PassengerEntity;
-import common.model.RouteEntity;
 import common.model.TicketEntity;
 import common.repository.PassengerRepository;
 import common.repository.TicketsRepository;
