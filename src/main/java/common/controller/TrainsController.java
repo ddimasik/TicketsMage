@@ -4,6 +4,7 @@ import common.dto.SearchDTO;
 import common.dto.TrainDTO;
 import common.model.TrainEntity;
 import common.converters.entity_to_dto.TrainEntityToDtoConverter;
+import common.service.PassengerService;
 import common.service.StationService;
 import common.service.TrainsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class TrainsController {
 
     @Autowired
     private StationService stationService;
+
+    @Autowired
+    private PassengerService passengerService;
 
     @Autowired
     private TrainEntityToDtoConverter trainEntityToDtoConverter;
@@ -75,8 +79,28 @@ public class TrainsController {
             model.addAttribute("searchDTO", searchDTO);
             return "fragments/searchResultFragment";
         }
+    }
 
+    @GetMapping(value = "/trains/{id}/passengers")
+    public String showPassengers(@PathVariable("id") int id, Model model) {
 
+        model.addAttribute("trainId", id);
+        model.addAttribute("trainName", trainsService.findById(id).getName());
+
+        if (!passengerService.findAllByTrain(id).isEmpty()){
+            model.addAttribute("passengers", passengerService.findAllByTrain(id));
+            return "fragments/passengersOfTrainFragment";
+        }
+
+        List<TrainDTO> trainDTOList = new LinkedList<>();
+        for (TrainEntity trainEntity : trainsService.findAll()) {
+            trainDTOList.add(trainEntityToDtoConverter.convert(trainEntity));
+        }
+        model.addAttribute("trains", trainDTOList);
+        model.addAttribute("css", "danger");
+        model.addAttribute("msg", "No passengers present on train ");
+
+        return "fragments/allTrainsFragment";
     }
 
     @PostMapping(value = "/allTrains")

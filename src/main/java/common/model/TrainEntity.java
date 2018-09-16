@@ -30,4 +30,15 @@ public class TrainEntity {
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startDateTime;
+
+    @Override
+    public String toString() {
+        return "TrainEntity{" +
+                "id=" + id +
+                ", capacity=" + capacity +
+                ", name='" + name + '\'' +
+                ", startSt=" + startSt +
+                ", startDateTime=" + startDateTime +
+                '}';
+    }
 }

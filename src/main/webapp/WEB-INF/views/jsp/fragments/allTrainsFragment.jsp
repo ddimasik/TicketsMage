@@ -10,8 +10,19 @@
 
 <div class="container">
     <h2>All trains list</h2>
-	<table class="table table-striped" width="80%" >
-        <tr><th>ID</th><th>Name</th><th>Capacity</th><th>Start</th><th>Station</th><th>Time</th><th>Delete train</th></tr>
+
+    <c:if test="${not empty msg}">
+        <div class="alert alert-${css} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-label="Close">
+                <span aria-hidden="true">Clear</span>
+            </button>
+            <strong>${msg} ${trainId} ${trainName}</strong>
+        </div>
+    </c:if>
+
+    <table class="table table-striped" width="80%" >
+        <tr><th>ID</th><th>Name</th><th>Capacity</th><th>Start</th><th>Station</th><th>Time</th><th>Passengers</th><th>Delete train</th></tr>
 
 		<c:forEach var="train" items="${trains}">
 
@@ -39,6 +50,11 @@
                             <span>${minutesFromStartStn}</span>
                             <br>
                         </c:forEach>
+                </td>
+                <td>
+                    <form action="/trains/${train.id}/passengers" method="get">
+                        <button type='submit' name='showPassengers'>Passengers</button>
+                    </form>
                 </td>
                 <td>
                     <form action="/trains/${train.id}/delete" method="post">

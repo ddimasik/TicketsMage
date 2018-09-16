@@ -6,6 +6,8 @@ import common.model.Station;
 import common.model.TrainEntity;
 import common.repository.RouteRepository;
 import common.repository.TrainsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,8 @@ import java.util.List;
 @Service
 @Transactional
 public class RouteService {
+
+    private final Logger logger = LoggerFactory.getLogger(RouteService.class);
 
     @Autowired
     private RouteRepository routeRepository;
@@ -32,6 +36,7 @@ public class RouteService {
         for (RouteEntity routeEntity : routesList) {
             routeEntity.setFreeSeatsOnStn(routeEntity.getFreeSeatsOnStn() - 1);
             routeRepository.persistChangedRoute(routeEntity);
+            logger.debug("Decreased free seats on station {} for train {} and {}", routeEntity.getStationId(), trainId, searchDTO);
         }
     }
 
@@ -42,6 +47,7 @@ public class RouteService {
 
         for (RouteEntity routeEntity : routesList) {
             if (routeEntity.getFreeSeatsOnStn() <= 0){
+                    logger.debug("No free seats for train {} and {}", trainId, searchDTO);
                     return false;
             }
         }

@@ -3,6 +3,8 @@ package common.repository;
 import common.dto.SearchDTO;
 import common.model.RouteEntity;
 import common.model.TrainEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,6 +16,8 @@ import java.util.List;
 @Repository
 public class RouteRepository {
 
+    private final Logger logger = LoggerFactory.getLogger(RouteRepository.class);
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -24,6 +28,8 @@ public class RouteRepository {
 
         LocalDateTime searchStartTime = LocalDateTime.parse(searchDTO.getStartDateTime().toString());
         LocalDateTime searchEndTime = LocalDateTime.parse(searchDTO.getEndDateTime().toString());
+
+        logger.debug("Route time check was {} for {} and {} ", (trainPassSearchStartStation.isAfter(searchStartTime) || trainPassSearchStartStation.equals(searchStartTime)) && trainPassSearchEndStation.isBefore(searchEndTime), trainEntity, searchDTO);
 
         return  (trainPassSearchStartStation.isAfter(searchStartTime) || trainPassSearchStartStation.equals(searchStartTime)) && trainPassSearchEndStation.isBefore(searchEndTime);
     }

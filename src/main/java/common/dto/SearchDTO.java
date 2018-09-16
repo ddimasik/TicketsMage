@@ -13,9 +13,17 @@ public class SearchDTO {
 
     private int endStationId;
 
-    //TODO debug the model
     private Object startDateTime;
 
     private Object endDateTime;
 
+    @Override
+    public String toString() {
+        return "SearchDTO{" +
+                "startStationId=" + startStationId +
+                ", startDateTime=" + startDateTime +
+                ", endStationId=" + endStationId +
+                ", endDateTime=" + endDateTime +
+                '}';
+    }
 }

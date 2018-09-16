@@ -26,7 +26,16 @@ public class TrainsServiceTest {
     public void testEmptyGetAllTrains(){
         when(trainsRepository.getAllTrains()).thenReturn(Collections.emptyList());
         List<TrainEntity> all = trainsService.findAll();
-
         Assert.assertTrue(all.isEmpty());
     }
+
+    @Test
+    public void testFindById(){
+        TrainEntity trainEntity = new TrainEntity();
+        trainEntity.setCapacity(33);
+        when(trainsRepository.findById(1)).thenReturn(trainEntity);
+        TrainEntity testRes = trainsService.findById(1);
+        Assert.assertEquals(trainEntity.getCapacity(), testRes.getCapacity());
+    }
+
 }

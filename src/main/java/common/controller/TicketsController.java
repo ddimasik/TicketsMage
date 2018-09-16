@@ -62,7 +62,7 @@ public class TicketsController {
 
         } else {
             model.addAttribute("css", "danger");
-            model.addAttribute("msg", "This passenger already is on the train. Enter another data, please.");
+            model.addAttribute("msg", "This passenger is already on the train. Enter another data, please.");
             model.addAttribute("ticketId", passengerDTO.getTicketId());
             model.addAttribute("PassengerDTO", passengerDTO);
             return "fragments/bookTicketFragment";

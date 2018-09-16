@@ -7,6 +7,8 @@ import common.model.PassengerEntity;
 import common.model.TicketEntity;
 import common.repository.PassengerRepository;
 import common.repository.TicketsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,8 @@ import java.util.List;
 @Service
 @Transactional
 public class TicketService {
+
+    private final Logger logger = LoggerFactory.getLogger(TicketService.class);
 
     @Autowired
     private TicketsRepository ticketsRepository;

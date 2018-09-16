@@ -1,5 +1,6 @@
 package common.service;
 
+import common.converters.entity_to_dto.TrainEntityToDtoConverter;
 import common.repository.RouteRepository;
 import common.repository.StationsRepository;
 import common.repository.TrainsRepository;
@@ -15,7 +16,7 @@ public class MocksConfiguration {
     static StationsRepository stationsRepository = mock(StationsRepository.class);
     static RouteService routeService = mock(RouteService.class);
     static RouteRepository routeRepository = mock(RouteRepository.class);
-
+    static TrainEntityToDtoConverter trainEntityToDtoConverter = mock(TrainEntityToDtoConverter.class);
 
     @Bean
     @Primary
@@ -45,6 +46,12 @@ public class MocksConfiguration {
     @Primary
     public RouteRepository routeRepository(){
         return routeRepository;
+    }
+
+    @Bean
+    @Primary
+    public TrainEntityToDtoConverter trainEntityToDtoConverter(){
+        return trainEntityToDtoConverter;
     }
 
 }
