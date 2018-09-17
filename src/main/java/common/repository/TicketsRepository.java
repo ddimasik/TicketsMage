@@ -34,6 +34,7 @@ public class TicketsRepository {
 
         List<PassengerEntity> passengerEntityList = new LinkedList<>();
 
+        //TODO ты можешь написать более сложный запрос на скл (используя JOIN), который сам тебе вернет сразу список пассажиров, и тогда тебе не нужен будет вот этот цикл ниже, которые просто перекладывает объектики в коллекцию
         Query query = entityManager.createQuery("select t from TicketEntity t where t.trainId = :id", TicketEntity.class);
         List<TicketEntity> ticketEntityList = query.setParameter("id", id).getResultList();
         for (TicketEntity ticketEntity : ticketEntityList) {

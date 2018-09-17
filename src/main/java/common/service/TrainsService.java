@@ -84,7 +84,8 @@ public class TrainsService {
 
             if (routeRepository.checkIfRouteIsCorrect(trainEntity, searchDTO)
              && routeRepository.checkIfRouteTimeIsCorrect(trainEntity, searchDTO)
-             && routeService.checkIfIsFreeSeatOnEachStation(trainEntity.getId(), searchDTO)){
+             && routeService.checkIfIsFreeSeatOnEachStation(trainEntity.getId(), searchDTO)
+             && routeService.checkIfTimeNowEarlierThanTimeOnStartStation(trainEntity.getId(), searchDTO)){
                 trainDTOList.add(trainEntityToDtoConverter.convert(trainEntity));
             }
         }

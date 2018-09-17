@@ -27,20 +27,20 @@ public class TrainEntityToDtoConverterImpl implements TrainEntityToDtoConverter,
         trainDTO.setCapacity(trainEntity.getCapacity());
         trainDTO.setStartDateTime(trainEntity.getStartDateTime());
         int routesQuantity = routeService.findRouteOfTrain(trainEntity).size();
-        int [] stIds = new int[routesQuantity];
-        int [] stTime = new int[routesQuantity];
+        int [] stationIds = new int[routesQuantity];
+        int [] stationTime = new int[routesQuantity];
         String [] stationName = new String[routesQuantity];
         Object [] timeOnStation = new Object[routesQuantity];
         int j = 0;
-        for (RouteEntity re : routeService.findRouteOfTrain(trainEntity)) {
-            stIds[j] = re.getStationId();
-            stTime[j] = re.getMinutesFromStartStn();
-            stationName[j] = stationsRepository.findById(re.getStationId()).getName();
-            timeOnStation[j] = trainEntity.getStartDateTime().plusMinutes(re.getMinutesFromStartStn());
+        for (RouteEntity routeEntity : routeService.findRouteOfTrain(trainEntity)) {
+            stationIds[j] = routeEntity.getStationId();
+            stationTime[j] = routeEntity.getMinutesFromStartStn();
+            stationName[j] = stationsRepository.findById(routeEntity.getStationId()).getName();
+            timeOnStation[j] = trainEntity.getStartDateTime().plusMinutes(routeEntity.getMinutesFromStartStn());
             j++;
         }
-        trainDTO.setStationId(stIds);
-        trainDTO.setMinutesFromStartStn(stTime);
+        trainDTO.setStationId(stationIds);
+        trainDTO.setMinutesFromStartStn(stationTime);
         trainDTO.setStationName(stationName);
         trainDTO.setTimeOnStation(timeOnStation);
         return trainDTO;

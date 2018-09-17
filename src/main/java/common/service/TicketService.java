@@ -46,6 +46,9 @@ public class TicketService {
             // Exception: result returns more than one elements.
             // org.hibernate.jpa.internal.QueryImpl.getSingleResult(QueryImpl.java:505)
             // common.repository.PassengerRepository.findPassengerByDTO(PassengerRepository.java:32)
+
+            logger.debug("ERRRRROR: PassengerEntity {} not unique", passengerEntityList.get(0).getId() );
+
             return false;
         }
         return (!ticketsRepository.checkIfPassengerExistsOnTrain(passengerEntityList.get(0), passengerDTO.getTicketId()));

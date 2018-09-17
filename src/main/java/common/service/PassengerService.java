@@ -25,6 +25,9 @@ public class PassengerService {
     public List<PassengerDTO> findAllByTrain(int id){
 
         List<PassengerDTO> passengerDTOList = new LinkedList<>();
+        //TODO Как надо: строки кода с 33 по 36 вынести в метод конвертера из Ентити в ДТО и вызывать этот метод тут,
+        //
+        //А еще лучше написать в конвертере, который конвертирует список Ентити в список ДТО, т.е. строки с 32 по 38
         if (!ticketsRepository.findAllPassengersInTrain(id).isEmpty()){
             for (PassengerEntity passengerEntity : ticketsRepository.findAllPassengersInTrain(id)){
                 PassengerDTO passengerDTO = new PassengerDTO();

@@ -20,6 +20,8 @@ import java.util.List;
 @Transactional
 public class RouteService {
 
+    private static final int TIME_IN_MINUTES_BETWEEN_NOW_AND_START_STATION = 10;
+
     private final Logger logger = LoggerFactory.getLogger(RouteService.class);
 
     @Autowired
@@ -40,6 +42,16 @@ public class RouteService {
         }
     }
 
+
+    public boolean checkIfTimeNowEarlierThanTimeOnStartStation(int trainId, SearchDTO searchDTO){
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime timeOnStartStation = routeRepository.findTimeTrainOnStation(trainsRepository.findById(trainId), searchDTO.getStartStationId());
+
+        logger.debug("Time check was {} for time now {} and time on start station {}", now.plusMinutes(TIME_IN_MINUTES_BETWEEN_NOW_AND_START_STATION).isBefore(timeOnStartStation), now, timeOnStartStation );
+
+        return now.plusMinutes(TIME_IN_MINUTES_BETWEEN_NOW_AND_START_STATION).isBefore(timeOnStartStation);
+    }
 
     public boolean checkIfIsFreeSeatOnEachStation(int trainId, SearchDTO searchDTO) {
 

@@ -21,7 +21,14 @@ public class RouteRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-
+    //TODO вот этот метод и следующие производят некоторую валидацию объекта, а цель репозитория - выполнять запросы к базе,
+    // т.е. у тебя нарушена концепция Single Responsibility ООП, т.к. сейчас репозиторий и шлет запросики и валидирует объектики.
+    //
+    //Как решить эту плоблему: написать отдельные класс валидатор для роутов, положить его в специальный пакетик validator,
+    // и (ВНИМАНИЕ) в СЕРВИСЕ перед вызовом методов репозитория проверять, что объект валидный.
+    //
+    //Почему в сервисе: потому что валидация - это чать бизнес слоя, т.е. твоя предметная область задает тебе правила того,
+    // что называть "валидным" роутом и тп.
     public boolean checkIfRouteTimeIsCorrect(TrainEntity trainEntity, SearchDTO searchDTO){
         LocalDateTime trainPassSearchStartStation = findTimeTrainOnStation(trainEntity, searchDTO.getStartStationId());
         LocalDateTime trainPassSearchEndStation = findTimeTrainOnStation(trainEntity, searchDTO.getEndStationId());
