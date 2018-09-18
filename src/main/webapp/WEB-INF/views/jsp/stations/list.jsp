@@ -43,6 +43,7 @@
                     <spring:url value="/stations/${station.id}" var="stationUrl" />
                     <spring:url value="/stations/${station.id}/delete" var="deleteUrl" />
                     <spring:url value="/stations/${station.id}/update" var="updateUrl" />
+                    <spring:url value="/stations/${station.id}/schedule" var="scheduleUrl" />
 
                     <button class="btn btn-info"
                             onclick="location.href='${stationUrl}'">Details</button>
@@ -50,6 +51,8 @@
                             onclick="location.href='${updateUrl}'">Update</button>
                     <button class="btn btn-danger"
                             onclick="this.disabled=true;post('${deleteUrl}')">Delete</button>
+                    <button class="btn btn-warning"
+                            onclick="location.href='${scheduleUrl}'">Schedule</button>
                 </td>
             </tr>
             </c:forEach>

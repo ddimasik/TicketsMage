@@ -5,21 +5,43 @@ import common.model.RouteEntity;
 import common.model.TrainEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 
 @Repository
 public class RouteRepository {
 
+    private static final String STATION_ID = "stationId";
+    private static final String SELECT_R_FROM_ROUTE_ENTITY_R_WHERE = "select r from RouteEntity r where";
     private final Logger logger = LoggerFactory.getLogger(RouteRepository.class);
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Autowired
+    private TrainsRepository trainsRepository;
+
+
+    public List<TrainEntity> findTrainsPassingStationId(int stationId){
+
+        TypedQuery<RouteEntity> query = entityManager.createQuery(SELECT_R_FROM_ROUTE_ENTITY_R_WHERE + " " +
+                "r.stationId = :stationId", RouteEntity.class);
+        List<RouteEntity> routeEntityList = query.setParameter(STATION_ID,stationId).getResultList();
+
+        List<TrainEntity> trainEntityList = new LinkedList<>();
+        for (RouteEntity routeEntity: routeEntityList) {
+            trainEntityList.add(trainsRepository.findById(routeEntity.getTrainEntityId()));
+        }
+        return trainEntityList;
+    }
+
 
     //TODO вот этот метод и следующие производят некоторую валидацию объекта, а цель репозитория - выполнять запросы к базе,
     // т.е. у тебя нарушена концепция Single Responsibility ООП, т.к. сейчас репозиторий и шлет запросики и валидирует объектики.
@@ -48,13 +70,13 @@ public class RouteRepository {
              && (findTimeTrainOnStation(trainEntity, searchDTO.getStartStationId()).isBefore(findTimeTrainOnStation(trainEntity, searchDTO.getEndStationId()))));
     }
 
-    public boolean checkIfTrainPassStation(TrainEntity trainEntity, int stationId){
+    private boolean checkIfTrainPassStation(TrainEntity trainEntity, int stationId){
 
-        TypedQuery<RouteEntity> query = entityManager.createQuery("select r from RouteEntity r where " +
+        TypedQuery<RouteEntity> query = entityManager.createQuery(SELECT_R_FROM_ROUTE_ENTITY_R_WHERE + " " +
                 "r.trainEntityId = :trainId and r.stationId = :stationId", RouteEntity.class);
 
         return (!query.setParameter("trainId",trainEntity.getId())
-                .setParameter("stationId",stationId).getResultList().isEmpty());
+                .setParameter(STATION_ID,stationId).getResultList().isEmpty());
 
     }
 
@@ -62,11 +84,11 @@ public class RouteRepository {
 
         LocalDateTime trainStart = trainEntity.getStartDateTime();
 
-        TypedQuery<RouteEntity> query = entityManager.createQuery("select r from RouteEntity r where " +
+        TypedQuery<RouteEntity> query = entityManager.createQuery(SELECT_R_FROM_ROUTE_ENTITY_R_WHERE + " " +
                 "r.trainEntityId = :trainId and r.stationId = :stationId", RouteEntity.class);
 
         int minutesFromStartStation = query.setParameter("trainId",trainEntity.getId())
-                                           .setParameter("stationId",stationId).getSingleResult().getMinutesFromStartStn();
+                                           .setParameter(STATION_ID,stationId).getSingleResult().getMinutesFromStartStn();
 
         return trainStart.plusMinutes(minutesFromStartStation);
 

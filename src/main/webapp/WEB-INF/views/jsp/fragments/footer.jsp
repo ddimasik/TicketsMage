@@ -3,7 +3,7 @@
 <div class="container">
 	<hr>
 	<footer>
-		<p>&copy; Mkyonglushkov.com 2015</p>
+		<p>&copy; 7 Kingdom Railways 2018</p>
 	</footer>
 </div>
 

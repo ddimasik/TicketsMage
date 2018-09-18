@@ -1,5 +1,6 @@
 package common.controller;
 
+import common.service.TrainsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,9 @@ public class StationController {
 
     @Autowired
     StationFormValidator stationFormValidator;
+
+    @Autowired
+    private TrainsService trainsService;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -67,6 +71,15 @@ public class StationController {
         model.addAttribute("stationForm", station);
         populateDefaultModel(model);
         return STATIONS_STATIONFORM;
+    }
+
+    @GetMapping(value = "/stations/{id}/schedule")
+    public String showStationShedule(@PathVariable("id") int id, Model model) {
+        Station station = stationService.findById(id);
+        model.addAttribute("scheduleSwitcher", station.getName());
+        model.addAttribute("trains", trainsService.findTrainsPassingStationIdAndReturnTrainDTOs(id));
+
+        return "fragments/allTrainsFragment";
     }
 
     @PostMapping(value = "/stations")

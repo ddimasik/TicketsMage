@@ -9,7 +9,12 @@
 <jsp:include page="header.jsp" />
 
 <div class="container">
-    <h2>All trains list</h2>
+
+    <h2>All trains list
+        <c:if test="${not empty scheduleSwitcher}">
+            passing station ${scheduleSwitcher}
+        </c:if>
+    </h2>
 
     <c:if test="${not empty msg}">
         <div class="alert alert-${css} alert-dismissible" role="alert">
@@ -42,6 +47,9 @@
                 <td>
                         <c:forEach var="stationId" items="${train.stationName}">
                             <span>${stationId}</span>
+                            <c:if test="${stationId == scheduleSwitcher}">
+                                <span class="badge badge-light">This</span>
+                            </c:if>
                             <br>
                         </c:forEach>
                 </td>

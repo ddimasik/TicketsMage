@@ -37,6 +37,16 @@ public class TrainsService {
     @Autowired
     private TrainEntityToDtoConverter trainEntityToDtoConverter;
 
+
+    public List<TrainDTO> findTrainsPassingStationIdAndReturnTrainDTOs(int id){
+
+        List<TrainDTO> trainDTOList = new LinkedList<>();
+        for (TrainEntity trainEntity : routeRepository.findTrainsPassingStationId(id)) {
+            trainDTOList.add(trainEntityToDtoConverter.convert(trainEntity));
+        }
+        return trainDTOList;
+    }
+
     public TrainEntity findById(Integer id) {
         return trainsRepository.findById(id);
     }

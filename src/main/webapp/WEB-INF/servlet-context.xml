@@ -8,6 +8,7 @@
              xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
     <!-- It register the beans in context and scan the annotations inside beans and activate them -->
@@ -24,7 +25,7 @@
     <resources mapping="/resources/**" location="/resources/" />
 
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources
-        in the /WEB-INF/views directory -->
+        in the /WEB-INF/views direc tory -->
     <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/views/jsp/" />
         <beans:property name="suffix" value=".jsp" />
@@ -89,5 +90,23 @@
     <beans:bean id="trainEntityToDtoConverter" class="common.converters.entity_to_dto.TrainEntityToDtoConverterImpl" />
     <beans:bean id="ticketEntityToDtoConverter" class="common.service.TicketEntityToDtoConverterImpl" />
     <beans:bean id="passengerDtoToEntityConverter" class="common.converters.dto_to_entity.PassengerDtoToEntityConverterImpl" />
+
+    <!--<beans:bean id="basicAuthEntryPoint" class="com.memorynotfound.spring.security.config.CustomAuthenticationEntryPoint"/>-->
+
+
+    <!--<http pattern="/home" security="none"/>-->
+    <!--<http use-expressions="true">-->
+        <!--<intercept-url pattern="/**" access="isAuthenticated()" />-->
+        <!--<http-basic />-->
+    <!--</http>-->
+
+    <!--<authentication-manager>-->
+        <!--<authentication-provider>-->
+            <!--<user-service>-->
+                <!--<user name="userId" password="passwd" authorities="ROLE_USER" />-->
+            <!--</user-service>-->
+        <!--</authentication-provider>-->
+    <!--</authentication-manager>-->
+
 
 </beans:beans>

@@ -23,7 +23,7 @@
 <nav class="navbar navbar-inverse ">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${urlHome}">Home</a>
+			<a class="navbar-brand" href="${urlHome}">All stations</a>
 		</div>
 		<div id="navbarTrains">
 			<ul class="nav navbar-nav">

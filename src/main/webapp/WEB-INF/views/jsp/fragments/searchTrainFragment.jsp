@@ -33,7 +33,7 @@
                     </c:forEach>
                 </form:select>
                 </td>
-                <td><input name="startDateTime" type="datetime-local" required="required" "/></td>
+                <td><input name="startDateTime" type="datetime-local" required="required"></td>
             </tr>
             <tr>
                 <td><h3>End</h3></td>
@@ -43,7 +43,7 @@
                     </c:forEach>
                 </form:select>
                 </td>
-                <td><input name="endDateTime" type="datetime-local" required="required" "/></td>
+                <td><input name="endDateTime" type="datetime-local" required="required"/></td>
             </tr>
         </table>
         <input type="submit" value="Search">
