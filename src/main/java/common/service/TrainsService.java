@@ -37,6 +37,9 @@ public class TrainsService {
     @Autowired
     private TrainEntityToDtoConverter trainEntityToDtoConverter;
 
+    public int addition(int a, int b){
+        return a + b;
+    }
 
     public List<TrainDTO> findTrainsPassingStationIdAndReturnTrainDTOs(int id){
 
