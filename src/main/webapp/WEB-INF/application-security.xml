@@ -9,19 +9,29 @@
     <http auto-config="true"  use-expressions="true">
         <intercept-url pattern="/login" access="permitAll" />
         <intercept-url pattern="/logout" access="permitAll" />
-        <intercept-url pattern="/trains/search" access="permitAll" />
         <intercept-url pattern="/accessdenied" access="permitAll" />
-        <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+
+        <intercept-url pattern="/stations" access="permitAll" />
+        <intercept-url pattern="/stations/**/schedule" access="permitAll" />
+        <intercept-url pattern="/allTrains" access="permitAll" />
+
+        <intercept-url pattern="/trains/search**" access="permitAll" />
+
+        <intercept-url pattern="/resources/core/**" access="permitAll" />
+
+        <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')" />
         <form-login login-page="/login" default-target-url="/allTrains" authentication-failure-url="/accessdenied" />
-        <logout logout-url="/logout" logout-success-url="/login"/>
+        <logout logout-url="/logout" logout-success-url="/allTrains"/>
+        <anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/>
     </http>
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider>
             <user-service>
-                <user name="ddd" password="111" authorities="ROLE_USER" />
+                <user name="ddd" password="111" authorities="ROLE_ADMIN" />
             </user-service>
         </authentication-provider>
     </authentication-manager>
 
 </beans:beans>
+

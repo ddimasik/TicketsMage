@@ -25,6 +25,6 @@ public class WelcomeController {
 
     @GetMapping(value = "/logout")
     public String logout(ModelMap model) {
-        return "login";
+        return "redirect:/allTrains";
     }
 }

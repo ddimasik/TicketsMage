@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
 <head>
 <title>Tickets Mage</title>
@@ -13,34 +14,36 @@
 <link href="${coreCss}" rel="stylesheet" />
 </head>
 
-<spring:url value="/" var="urlHome" />
+<spring:url value="/stations" var="urlAllStations" />
 <spring:url value="/allTrains" var="urlAllTrains" />
 <spring:url value="/trains/add" var="urlAddTrain" />
 <spring:url value="/stations/add" var="urlAddStation" />
 <spring:url value="/trains/search" var="urlSearchTrain" />
+<spring:url value="/login" var="urlLogin" />
+<spring:url value="/logout" var="urlLogout" />
 
 
-<nav class="navbar navbar-inverse ">
-	<div class="container">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="${urlHome}">All stations</a>
-		</div>
-		<div id="navbarTrains">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="${urlAllTrains}">All trains</a></li>
-			</ul>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="${urlAddTrain}">Add train</a></li>
-			</ul>
-			</ul>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="${urlSearchTrain}">Search train</a></li>
-			</ul>
-		</div>
-		<div id="navbar">
-			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="${urlAddStation}">Add Station</a></li>
-			</ul>
-		</div>
-	</div>
+
+
+<nav class="navbar" style="background-color: #E7C697; font-size: large; border: none; ">
+    <div class="container">
+        <div id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a href="${urlSearchTrain}">Search train</a></li>
+                <li><a href="${urlAllStations}">All stations</a></li>
+                <li><a href="${urlAllTrains}">All trains</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <security:authorize ifAnyGranted="ROLE_ANONYMOUS">
+                    <li><a href="${urlLogin}">Staff</a></li>
+                </security:authorize>
+                <security:authorize ifAnyGranted="ROLE_ADMIN">
+                    <li><a href="${urlAddTrain}">Add train</a></li>
+                    <li><a href="${urlAddStation}">Add station</a></li>
+                    <li><a href="${urlLogout}">Logout</a></li>
+                </security:authorize>
+            </ul>
+        </div>
+    </div>
 </nav>
+
