@@ -8,8 +8,21 @@
 
 <jsp:include page="header.jsp" />
 
+
+
 <div class="container">
     <h2>Add new train</h2>
+
+        <c:if test="${not empty msg}">
+            <div class="alert alert-${css} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-label="Close">
+                    <span aria-hidden="true">Clear</span>
+                </button>
+                <strong>${msg}</strong>
+            </div>
+        </c:if>
+
         <form:form method="POST" action="/allTrains" modelAttribute="trainFragment">
         <table class="table table-striped">
             <tr>
@@ -33,14 +46,16 @@
 
             <tr>
                 <td><spring:message text="Start date & time"/></td>
-                <td><input name="startDateTime" type="datetime-local" required="required"/></td>
+                    <td><input name="startDateTime" type="datetime-local"
+                               min="2018-06-01T11:30" max="2018-12-30T11:59"
+                               pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
+                               required="required"/></td>
             </tr>
-
             <tr>
                 <td colspan="2"><h3>Select stations and time</h3></td>
             </tr>
 
-            <tr><th>Station</th><th>Time from start</th></tr>
+            <tr><th>Station</th><th>Minutes from start</th></tr>
             <c:forEach var="station" items="${stations}">
                 <tr>
                     <td>

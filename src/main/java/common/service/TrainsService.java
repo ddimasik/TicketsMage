@@ -98,6 +98,7 @@ public class TrainsService {
             if (routeRepository.checkIfRouteIsCorrect(trainEntity, searchDTO)
              && routeRepository.checkIfRouteTimeIsCorrect(trainEntity, searchDTO)
              && routeService.checkIfIsFreeSeatOnEachStation(trainEntity.getId(), searchDTO)
+                    //TODO эту проверку надо убрать из поиск и поставить в покупку
              && routeService.checkIfTimeNowEarlierThanTimeOnStartStation(trainEntity.getId(), searchDTO)){
                 trainDTOList.add(trainEntityToDtoConverter.convert(trainEntity));
             }

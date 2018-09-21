@@ -7,10 +7,14 @@ import common.converters.entity_to_dto.TrainEntityToDtoConverter;
 import common.service.PassengerService;
 import common.service.StationService;
 import common.service.TrainsService;
+import common.validator.TrainFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
@@ -34,6 +38,14 @@ public class TrainsController {
 
     @Autowired
     private TrainEntityToDtoConverter trainEntityToDtoConverter;
+
+    @Autowired
+    private TrainFormValidator trainFormValidator;
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(trainFormValidator);
+    }
 
     @GetMapping(value = "/allTrains")
     @Transactional
@@ -104,7 +116,13 @@ public class TrainsController {
     }
 
     @PostMapping(value = "/allTrains")
-    public String addTrain(@ModelAttribute("trainFragment") TrainDTO trainDTO){
+    public String addTrain(@ModelAttribute("trainFragment") @Validated TrainDTO trainDTO, BindingResult result, Model model){
+
+        if (result.hasErrors()){
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "Check all fields");
+            return "fragments/trainFragment";
+        }
         trainsService.addTrain(trainDTO);
         return "redirect:/allTrains";
     }
