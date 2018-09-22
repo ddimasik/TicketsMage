@@ -1,5 +1,6 @@
 package common.controller;
 
+import common.dto.StationDTO;
 import common.service.TrainsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import common.validator.StationFormValidator;
 public class StationController {
 
     private static final String STATIONS_STATIONFORM = "stations/stationform";
+    private static final String STATION_FORM = "stationForm";
 
     @Autowired
     private StationService stationService;
@@ -58,18 +60,7 @@ public class StationController {
 
     @GetMapping(value = "/stations/add")
     public String showAddUserForm(Model model) {
-        Station station = new Station();
-        station.setName("Gadjukino");
-        model.addAttribute("stationForm", station);
-        populateDefaultModel(model);
-        return STATIONS_STATIONFORM;
-    }
-
-    @GetMapping(value = "/stations/{id}/update")
-    public String showUpdateUserForm(@PathVariable("id") int id, Model model) {
-        Station station = stationService.findById(id);
-        model.addAttribute("stationForm", station);
-        populateDefaultModel(model);
+        model.addAttribute(STATION_FORM, new StationDTO());
         return STATIONS_STATIONFORM;
     }
 
@@ -83,36 +74,26 @@ public class StationController {
     }
 
     @PostMapping(value = "/stations")
-    public String saveOrUpdateUser(@ModelAttribute("stationForm") @Validated Station station,
+    public String saveOrUpdateUser(@ModelAttribute(STATION_FORM) @Validated StationDTO stationDTO,
                                    BindingResult result, Model model,
                                    final RedirectAttributes redirectAttributes) {
+
+
         if (result.hasErrors()) {
-            populateDefaultModel(model);
+
+            model.addAttribute(STATION_FORM, stationDTO);
             return STATIONS_STATIONFORM;
         } else {
-            redirectAttributes.addFlashAttribute("css", "success");
-            if(station.isNew()){
-                redirectAttributes.addFlashAttribute("msg", "Station added successfully!");
-            }else{
-                redirectAttributes.addFlashAttribute("msg", "Station updated successfully!");
-            }
-            stationService.saveOrUpdate(station);
-
-            return "redirect:/stations/" + station.getId();
+            stationService.saveOrUpdate(stationDTO);
+            return "redirect:/stations/";
         }
     }
 
     @PostMapping(value = "/stations/{id}/delete")
-    public String deleteUser(@PathVariable("id") int id,
-                             final RedirectAttributes redirectAttributes) {
+    public String deleteUser(@PathVariable("id") int id, final RedirectAttributes redirectAttributes) {
         stationService.removeStation(id);
         redirectAttributes.addFlashAttribute("css", "success");
         redirectAttributes.addFlashAttribute("msg", "Station is deleted!");
         return "redirect:/stations";
-
-    }
-    private void populateDefaultModel(Model model) {
-        model.addAttribute("name", "Default city");
-
     }
 }
