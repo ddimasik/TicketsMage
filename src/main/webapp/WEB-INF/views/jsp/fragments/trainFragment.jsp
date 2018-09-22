@@ -27,11 +27,17 @@
         <table class="table table-striped">
             <tr>
                 <td><spring:message text="Name"/></td>
-                <td><form:input path="name" required="required"/></td>
+                <td>
+                    <form:input path="name" required="required"/>
+                    <form:errors path="name" cssClass="alert-warning" />
+                </td>
             </tr>
             <tr>
                 <td><spring:message text="Capacity"/></td>
-                <td><form:input path="capacity" type="number" required="required"/></td>
+                <td>
+                    <form:input path="capacity" type="number" required="required" min="0"/>
+                    <form:errors path="capacity" cssClass="alert-warning" />
+                </td>
             </tr>
 
             <tr>
@@ -41,15 +47,18 @@
                         <form:option value="${station.id}">${station.name}</form:option>
                     </c:forEach>
                     </form:select>
+                    <form:errors path="startSt" cssClass="alert-warning" />
                 </td>
             </tr>
 
             <tr>
                 <td><spring:message text="Start date & time"/></td>
                     <td><input name="startDateTime" type="datetime-local"
-                               min="2018-06-01T11:30" max="2018-12-30T11:59"
+                               value=${startDateTime}
                                pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
-                               required="required"/></td>
+                               required="required" />
+                        <form:errors path="startDateTime" cssClass="alert-warning" />
+                    </td>
             </tr>
             <tr>
                 <td colspan="2"><h3>Select stations and time</h3></td>
@@ -63,12 +72,13 @@
                         <input hidden type="number" value="${station.id}" name="stationId" >
                     </td>
                     <td>
-                        <input  type="number" name="minutesFromStartStn" value="0" required>
+                        <input  type="number" name="minutesFromStartStn" value="0" required min="0">
+                        <form:errors path="minutesFromStartStn" cssClass="alert-warning" />
                     </td>
                 </tr>
             </c:forEach>
         </table>
-        <input type="submit">
+        <input type="submit" value="Create train">
 
     </form:form>
 </div>

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ import java.util.List;
 public class TrainsController {
 
     private static final String STATIONS_LIST = "stations";
+    private static final String DANGER = "danger";
 
     @Autowired
     private TrainsService trainsService;
@@ -80,7 +82,7 @@ public class TrainsController {
         List<TrainDTO> trainDTOList = trainsService.findSuitableTrains(searchDTO);
 
         if (trainDTOList.isEmpty()){
-            model.addAttribute("css", "danger");
+            model.addAttribute("css", DANGER);
             model.addAttribute("msg", "No available tickets, try changing search, please.");
             model.addAttribute("searchTrainFragment", searchDTO);
             model.addAttribute(STATIONS_LIST,stationService.findAll());
@@ -109,7 +111,7 @@ public class TrainsController {
             trainDTOList.add(trainEntityToDtoConverter.convert(trainEntity));
         }
         model.addAttribute("trains", trainDTOList);
-        model.addAttribute("css", "danger");
+        model.addAttribute("css", DANGER);
         model.addAttribute("msg", "No passengers present on train ");
 
         return "fragments/allTrainsFragment";
@@ -119,8 +121,16 @@ public class TrainsController {
     public String addTrain(@ModelAttribute("trainFragment") @Validated TrainDTO trainDTO, BindingResult result, Model model){
 
         if (result.hasErrors()){
-            model.addAttribute("css", "danger");
-            model.addAttribute("msg", "Check all fields");
+            for (ObjectError error : result.getAllErrors()) {
+                if (error.getDefaultMessage() != null && error.getDefaultMessage().equals("wrong.full.route.time")){
+                    model.addAttribute("msg", "Wrong route times: should be zero or greater than 30 and less than 300");
+                } else {
+                    model.addAttribute("msg", "Error detected, check field with warning");
+                }
+            }
+            model.addAttribute("css", DANGER);
+            model.addAttribute("startDateTime", trainDTO.getStartDateTime().toString());
+            model.addAttribute(STATIONS_LIST, stationService.findAll());
             return "fragments/trainFragment";
         }
         trainsService.addTrain(trainDTO);

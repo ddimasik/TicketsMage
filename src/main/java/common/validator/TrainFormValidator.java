@@ -14,8 +14,12 @@ import org.springframework.validation.Validator;
 @Component
 public class TrainFormValidator implements Validator {
 
-    private final Logger logger = LoggerFactory.getLogger(TrainFormValidator.class);
+    //TODO как задать вместимость в одном месте? вынести в адиминку? а как в validation.message передать?
+    private static final int MAX_CAP = 1001;
+    private static final int MAX_NAME_LEN = 33;
+    private static final int MIN_MINUTES_BETWEEN_TWO_STATIONS = 30;
 
+    private final Logger logger = LoggerFactory.getLogger(TrainFormValidator.class);
 
     @Autowired
     TrainsService trainsService;
@@ -23,18 +27,50 @@ public class TrainFormValidator implements Validator {
     @Override
     public boolean supports(Class<?> aClass) {  return TrainDTO.class.equals(aClass); }
 
-
     @Override
     public void validate(Object target, Errors errors) {
 
         TrainDTO trainDTO = (TrainDTO) target;
 
-        //if(station.getId()==null){errors.rejectValue("id", "Empty.stationForm.id");}
-        //ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty.stationForm.name");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"name", "empty.train.name");
 
-        if(trainDTO.getCapacity() <= 0){
+        if (trainDTO.getName().length() > MAX_NAME_LEN){
+            logger.debug("Too long name {}", trainDTO.getName());
+            errors.rejectValue("name", "too.long.train.name");
+        }
+
+        if(trainDTO.getCapacity() <= 0 || trainDTO.getCapacity() > MAX_CAP){
             logger.debug("Set wrong capacity {}", trainDTO.getCapacity());
             errors.rejectValue("capacity", "Wrong.train.capacity");
+        }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"startDateTime", "empty.start.datetime");
+
+        if(trainDTO.getStartSt() <= 0 ){
+            logger.debug("Set wrong start station {}", trainDTO.getStartSt());
+            errors.rejectValue("startSt", "empty.start.station");
+        }
+
+        int minutesSumm = 0;
+        if (trainDTO.getMinutesFromStartStn().length > 0 && trainDTO.getStationId().length > 0) {
+            for (int i = 0; i < trainDTO.getMinutesFromStartStn().length; i++){
+                if (trainDTO.getMinutesFromStartStn()[i] != 0 && trainDTO.getMinutesFromStartStn()[i] < MIN_MINUTES_BETWEEN_TWO_STATIONS){
+                    logger.debug("Wrong minutes from start {}", trainDTO.getMinutesFromStartStn()[i]);
+                    errors.reject("minutesFromStartStn","wrong.minutes.from.start");
+                    break;
+                }
+                minutesSumm += trainDTO.getMinutesFromStartStn()[i];
+            }
+        } else {
+            logger.debug("Empty station or minutes list {}", trainDTO);
+            errors.reject("empty.stationsMinutes.list");
+        }
+
+
+        if (minutesSumm <= 0) {
+            logger.debug("Wrong full route time {}", minutesSumm);
+            errors.reject("wrong.full.route.time", "wrong.full.route.time");
+
         }
 
     }

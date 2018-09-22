@@ -69,12 +69,14 @@ public class TrainsService {
 
         trainEntity.setStartDateTime(LocalDateTime.parse(startDateTimeString, formatter));
         trainsRepository.addTrain(trainEntity);
-        routeService.createRoute(trainEntity, stationsRepository.findById(trainEntity.getStartSt()), 0, trainDTO.getCapacity());
 
         for (int i = 0; i < stationsRepository.findAll().size(); i++){
             if (trainDTO.getMinutesFromStartStn()[i] != 0){
                 Station station = stationsRepository.findById(trainDTO.getStationId()[i]);
                 int time = trainDTO.getMinutesFromStartStn()[i];
+                if (station.getId() == trainDTO.getStartSt()){
+                    time = 0;
+                }
                 routeService.createRoute(trainEntity, station, time, trainDTO.getCapacity());
             }
         }

@@ -32,7 +32,7 @@
 
     <!-- This resolves messages from resource bundles for different locales -->
     <beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <beans:property name="basename" value="messages.messages" />
+        <beans:property name="basename" value="messages.validation" />
     </beans:bean>
 
     <!-- To validate the posted add form -->

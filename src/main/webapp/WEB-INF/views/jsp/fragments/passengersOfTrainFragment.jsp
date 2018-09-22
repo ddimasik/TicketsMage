@@ -10,7 +10,7 @@
 
 <div class="container">
     <h2>Passengers of train ${trainId} ${trainName}</h2>
-	<table class="table table-striped" width="80%" >
+	<table class="table table-striped" >
         <tr><th>Name</th><th>Surname</th><th>Birthday</th>
 
 		<c:forEach var="passenger" items="${passengers}">

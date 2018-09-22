@@ -4,7 +4,7 @@
 
 <html>
 <body>
-<h1 id="banner">Login to Security Demo</h1>
+<h1 id="banner">Login to 7 Kingdoms Railways</h1>
 <form name="f" action="<c:url value='j_spring_security_check'/>"
       method="POST">
     <table>

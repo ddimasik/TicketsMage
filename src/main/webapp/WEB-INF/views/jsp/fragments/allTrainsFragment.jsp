@@ -26,8 +26,8 @@
         </div>
     </c:if>
 
-    <table class="table table-striped" width="80%" >
-        <tr><th>ID</th><th>Name</th><th>Capacity</th><th>Start</th><th>Station</th><th>Time</th><th>Passengers</th><th>Delete train</th></tr>
+    <table class="table table-striped" >
+        <tr><th>ID</th><th>Name</th><th>Capacity</th><th>Start date & time</th><th>Station</th><th>Time</th><th>Passengers</th><th>Delete train</th></tr>
 
 		<c:forEach var="train" items="${trains}">
 

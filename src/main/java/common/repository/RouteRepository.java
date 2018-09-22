@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -103,7 +104,7 @@ public class RouteRepository {
     }
 
     public List<RouteEntity> findRouteOfTrain(int trainEntityId){
-        Query q = entityManager.createQuery("Select r FROM RouteEntity r where r.trainEntityId = :trainEntityId", RouteEntity.class);
+        Query q = entityManager.createQuery("Select r FROM RouteEntity r where r.trainEntityId = :trainEntityId order by r.minutesFromStartStn", RouteEntity.class);
         return q.setParameter("trainEntityId",trainEntityId).getResultList();
     }
 
