@@ -7,6 +7,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <title>Show station</title>
+</head>
 
 <jsp:include page="../fragments/header.jsp" />
 

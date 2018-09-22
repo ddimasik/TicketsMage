@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -14,11 +13,6 @@ import java.util.List;
 @Repository
 public class StationsRepository {
 
-//    public List<Station> findByNameContainingIgnoreCase(String searchString);
-//    @Query("select p from Station p where p.name = :name")
-//    public List<Station> findByNameIs(@Param("name") String name);
-//    @Query("select p from Station p where p.id = :id")
-//    public Station findById(@Param("id") Integer id);
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -40,12 +34,13 @@ public class StationsRepository {
         }
     }
 
+    public boolean findByName(String name){
+        TypedQuery<Station> query = entityManager.createQuery("select s from Station s where s.name = :name", Station.class);
+        return  !query.setParameter("name", name).getResultList().isEmpty();
+    }
+
     public void save(Station station){entityManager.persist(station);}
 
-    public void update(Station station) {entityManager.merge(station);}
-
-    public void delete(Station station){
-        entityManager.remove(station);
-    }
+    public void delete(Station station) {entityManager.remove(station);}
 
 }

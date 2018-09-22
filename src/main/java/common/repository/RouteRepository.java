@@ -12,7 +12,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 

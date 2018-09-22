@@ -36,7 +36,7 @@
     </beans:bean>
 
     <!-- To validate the posted add form -->
-    <beans:bean id="stationFormValidator" class="common.validator.StationFormValidator" />
+    <!--<beans:bean id="stationFormValidator" class="common.validator.StationFormValidator" />-->
 
     <!-- Datasource -->
     <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

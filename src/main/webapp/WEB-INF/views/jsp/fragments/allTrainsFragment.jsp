@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,10 +28,20 @@
     </c:if>
 
     <table class="table table-striped" >
-        <tr><th>ID</th><th>Name</th><th>Capacity</th><th>Start date & time</th><th>Station</th><th>Time</th><th>Passengers</th><th>Delete train</th></tr>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Capacity</th>
+            <th>Start date & time</th>
+            <th>Station</th>
+            <th>Time</th>
+            <security:authorize ifAnyGranted="ROLE_ADMIN">
+                <th>Passengers</th>
+            </security:authorize>
+            <%--<th>Delete train</th>--%>
+        </tr>
 
 		<c:forEach var="train" items="${trains}">
-
             <tr>
 				<td>
 						${train.id}
@@ -60,20 +71,24 @@
                         </c:forEach>
                 </td>
                 <td>
-                    <form action="/trains/${train.id}/passengers" method="get">
-                        <button type='submit' name='showPassengers'>Passengers</button>
-                    </form>
+                    <security:authorize ifAnyGranted="ROLE_ADMIN">
+                        <form action="/trains/${train.id}/passengers" method="get">
+                            <button type='submit' name='showPassengers'>Passengers</button>
+                        </form>
+                    </security:authorize>
                 </td>
-                <td>
+                <%--<td>
                     <form action="/trains/${train.id}/delete" method="post">
                         <button type='submit' name='delete' value='Delete'>Delete</button>
                     </form>
-                </td>
+                </td>--%>
 			</tr>
 		</c:forEach>
 
 	</table>
 </div>
+
+<jsp:include page="../fragments/footer.jsp" />
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

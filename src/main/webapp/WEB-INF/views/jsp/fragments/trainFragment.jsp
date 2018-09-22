@@ -78,10 +78,12 @@
                 </tr>
             </c:forEach>
         </table>
-        <input type="submit" value="Create train">
+        <input type="submit" value="Create train" class="btn-lg btn-primary">
 
     </form:form>
 </div>
+
+<jsp:include page="../fragments/footer.jsp" />
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

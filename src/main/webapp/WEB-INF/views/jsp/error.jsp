@@ -4,6 +4,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <title>Error page</title>
+</head>
 
 <jsp:include page="fragments/header.jsp" />
 
@@ -14,12 +17,10 @@
 		<h1>Error page (better call Saul)</h1>
 
 		<p>${exception.message}</p>
-		<!-- Exception: ${exception.message}.
+		Exception: ${exception.message}.
 		  	<c:forEach items="${exception.stackTrace}" var="stackTrace"> 
-				${stackTrace} 
+				<%--${stackTrace} --%>
 			</c:forEach>
-	  	-->
-
 	</div>
 
 	<jsp:include page="fragments/footer.jsp" />

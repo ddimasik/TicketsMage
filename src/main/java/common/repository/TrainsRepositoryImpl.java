@@ -31,6 +31,12 @@ public class TrainsRepositoryImpl implements TrainsRepository {
     }
 
     @Override
+    public boolean findByName(String name){
+        return !entityManager.createQuery("Select t FROM TrainEntity t where t.name = :name", TrainEntity.class)
+                .setParameter("name",name).getResultList().isEmpty();
+    }
+
+    @Override
     public void delete(TrainEntity trainEntity){
         entityManager.remove(trainEntity);
     }

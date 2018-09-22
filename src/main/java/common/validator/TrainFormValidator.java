@@ -2,6 +2,7 @@ package common.validator;
 
 
 import common.dto.TrainDTO;
+import common.repository.TrainsRepository;
 import common.service.TrainsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,10 @@ public class TrainFormValidator implements Validator {
     private final Logger logger = LoggerFactory.getLogger(TrainFormValidator.class);
 
     @Autowired
-    TrainsService trainsService;
+    private TrainsService trainsService;
+
+    @Autowired
+    private TrainsRepository trainsRepository;
 
     @Override
     public boolean supports(Class<?> aClass) {  return TrainDTO.class.equals(aClass); }
@@ -37,6 +41,11 @@ public class TrainFormValidator implements Validator {
         if (trainDTO.getName().length() > MAX_NAME_LEN){
             logger.debug("Too long name {}", trainDTO.getName());
             errors.rejectValue("name", "too.long.train.name");
+        }
+
+        if (trainsRepository.findByName(trainDTO.getName())){
+            logger.debug("Train with name {} already exists", trainDTO.getName());
+            errors.rejectValue("name", "train.name.already.exists");
         }
 
         if(trainDTO.getCapacity() <= 0 || trainDTO.getCapacity() > MAX_CAP){

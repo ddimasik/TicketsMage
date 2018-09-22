@@ -11,6 +11,8 @@ public interface TrainsRepository {
 
     TrainEntity findById(Integer id );
 
+    boolean findByName(String name);
+
     void delete(TrainEntity trainEntity);
 
 }

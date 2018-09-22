@@ -1,5 +1,6 @@
 package common.service;
 
+import common.dto.StationDTO;
 import common.model.Station;
 import common.repository.StationsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,23 +13,18 @@ import java.util.List;
 @Service
 public class StationService {
 
-//    private final Logger logger = LoggerFactory.getLogger(StationService.class);
-//
     @Autowired
     private StationsRepository stationsRepository;
 
-    @Transactional(readOnly=true)
     public Station findById(Integer id) {
         return stationsRepository.findById(id);
     }
 
     @Transactional
-    public void saveOrUpdate(Station station) {
-        if (findById(station.getId())==null) {
-            stationsRepository.save(station);
-        } else {
-            stationsRepository.update(station);
-        }
+    public void saveOrUpdate(StationDTO stationDTO) {
+        Station station = new Station();
+        station.setName(stationDTO.getName());
+        stationsRepository.save(station);
     }
 
     @Transactional
@@ -39,7 +35,6 @@ public class StationService {
         stationsRepository.delete(findById(id));
     }
 
-    @Transactional(readOnly=true)
     public List<Station> findAll() {
         return stationsRepository.findAll();
     }
@@ -50,14 +45,4 @@ public class StationService {
             stationsRepository.save(station);
         }
     }
-
-//    @Transactional(readOnly=true)
-//    public List<Station> findByNameIs(String name) {
-//        return stationsRepository.findByNameIs(name);
-//    }
-//
-//    @Transactional(readOnly=true)
-//    public List<Station> findByNameContainingIgnoreCase(String searchString) {
-//        return stationsRepository.findByNameContainingIgnoreCase(searchString);
-//    }
 }
