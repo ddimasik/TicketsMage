@@ -56,7 +56,7 @@
                     <td><input name="startDateTime" type="datetime-local"
                                value=${startDateTime}
                                pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
-                               required="required" />
+                               required="required"/>
                         <form:errors path="startDateTime" cssClass="alert-warning" />
                     </td>
             </tr>

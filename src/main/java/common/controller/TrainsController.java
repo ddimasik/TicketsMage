@@ -1,20 +1,17 @@
 package common.controller;
 
-import common.dto.SearchDTO;
 import common.dto.TrainDTO;
 import common.model.TrainEntity;
 import common.converters.entity_to_dto.TrainEntityToDtoConverter;
 import common.service.PassengerService;
 import common.service.StationService;
 import common.service.TrainsService;
-import common.validator.SearchFormValidator;
 import common.validator.TrainFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -45,19 +42,10 @@ public class TrainsController {
     @Autowired
     private TrainFormValidator trainFormValidator;
 
-    @Autowired
-    private SearchFormValidator searchFormValidator;
 
     @InitBinder
-    protected void initTrainBinder(WebDataBinder binder) {
-        List<Validator> validatorList = new LinkedList<>();
-        validatorList.add(trainFormValidator);
-        validatorList.add(searchFormValidator);
-        for (Validator validator : validatorList) {
-            if (validator.supports(binder.getTarget().getClass()) && !validator.getClass().getName().contains("org.springframework")){
-                binder.addValidators(validator);
-            }
-        }
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(trainFormValidator);
     }
 
     @GetMapping(value = "/allTrains")
@@ -76,33 +64,6 @@ public class TrainsController {
         model.addAttribute("trainFragment", new TrainDTO());
         model.addAttribute(STATIONS_LIST, stationService.findAll());
         return "fragments/trainFragment";
-    }
-
-
-    @GetMapping(value = "/trains/search")
-    public String searchTrain(Model model){
-        model.addAttribute("searchTrainFragment", new SearchDTO());
-        model.addAttribute(STATIONS_LIST,stationService.findAll());
-        return "fragments/searchTrainFragment";
-    }
-
-    @GetMapping(value = "/trains/searchResult")
-    public String searchResult(@ModelAttribute("searchTrainFragment") @Validated SearchDTO searchDTO, Model model){
-
-        List<TrainDTO> trainDTOList = trainsService.findSuitableTrains(searchDTO);
-
-        if (trainDTOList.isEmpty()){
-            model.addAttribute("css", DANGER);
-            model.addAttribute("msg", "No available tickets, try changing search, please.");
-            model.addAttribute("searchTrainFragment", searchDTO);
-            model.addAttribute(STATIONS_LIST,stationService.findAll());
-            return "fragments/searchTrainFragment";
-
-        } else {
-            model.addAttribute("searchResult", trainDTOList);
-            model.addAttribute("searchDTO", searchDTO);
-            return "fragments/searchResultFragment";
-        }
     }
 
     @GetMapping(value = "/trains/{id}/passengers")
