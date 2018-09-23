@@ -24,15 +24,15 @@
     <form:form method="POST" action="/trains/buyTicket">
         <div>
             <label>Name</label>
-            <input name="name" required type="text" value="${PassengerDTO.name}"></div>
+            <input name="name" required type="text" value="${PassengerDTO.name}">
         </div>
         <div>
             <label>Surname</label>
-            <input name="surname" required type="text" value="${PassengerDTO.surname}"></div>
+            <input name="surname" required type="text" value="${PassengerDTO.surname}">
         </div>
         <div>
             <label>Birthday</label>
-            <input name="birthday" required type="date" value="${PassengerDTO.birthday}"></div>
+            <input name="birthday" required type="date" value="${PassengerDTO.birthday}">
         </div>
         <div>
             <input name="ticketId"  value="${ticketId}">

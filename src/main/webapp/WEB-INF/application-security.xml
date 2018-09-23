@@ -18,6 +18,9 @@
 
         <intercept-url pattern="/trains/search**" access="permitAll" />
 
+        <intercept-url pattern="/trains/bookTicket/**" access="permitAll" />
+        <intercept-url pattern="/trains/buyTicket/**" access="permitAll" />
+
         <intercept-url pattern="/resources/core/**" access="permitAll" />
 
         <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')" />

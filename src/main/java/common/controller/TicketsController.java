@@ -5,7 +5,6 @@ import common.dto.SearchDTO;
 import common.dto.TicketDTO;
 import common.service.PassengerService;
 import common.service.StationService;
-import common.service.TicketEntityToDtoConverter;
 import common.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,14 +21,7 @@ public class TicketsController {
     private TicketService ticketService;
 
     @Autowired
-    private PassengerService passengerService;
-
-    @Autowired
-    private TicketEntityToDtoConverter ticketEntityToDtoConverter;
-
-    @Autowired
-    private StationService stationService;
-
+    private  StationService stationService;
 
     /** bookingResult can be either thicketId or -1 that means that no ticket is available */
     @PostMapping(value = "/trains/bookTicket/{id}")
@@ -54,6 +46,17 @@ public class TicketsController {
 
     @PostMapping(value = "/trains/buyTicket")
     public String buyTicket(@ModelAttribute("buyTicket") PassengerDTO passengerDTO, Model model){
+
+        if (passengerDTO.getName().isEmpty()
+            || passengerDTO.getSurname().isEmpty()
+            || passengerDTO.getBirthday().toString().isEmpty()){
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "Fill all fields");
+            model.addAttribute("ticketId", passengerDTO.getTicketId());
+            model.addAttribute("PassengerDTO", passengerDTO);
+            return "fragments/bookTicketFragment";
+        }
+
 
         if (ticketService.validate(passengerDTO)){
             TicketDTO ticketDTO = ticketService.buyTicket(passengerDTO);

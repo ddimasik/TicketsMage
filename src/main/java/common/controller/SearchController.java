@@ -1,8 +1,11 @@
 package common.controller;
 
+import common.dto.PassengerDTO;
 import common.dto.SearchDTO;
 import common.dto.TrainDTO;
+import common.repository.TrainsRepository;
 import common.service.StationService;
+import common.service.TicketService;
 import common.service.TrainsService;
 import common.validator.SearchFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,6 +33,9 @@ public class SearchController {
 
     @Autowired
     private SearchFormValidator searchFormValidator;
+
+    @Autowired
+    private TicketService ticketService;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -67,6 +71,7 @@ public class SearchController {
             return "fragments/searchResultFragment";
         }
     }
+
 
     private void populateModel(SearchDTO searchDTO, Model model){
         model.addAttribute("searchTrainFragment", searchDTO);
