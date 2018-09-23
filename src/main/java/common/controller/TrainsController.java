@@ -7,13 +7,14 @@ import common.converters.entity_to_dto.TrainEntityToDtoConverter;
 import common.service.PassengerService;
 import common.service.StationService;
 import common.service.TrainsService;
+import common.validator.SearchFormValidator;
 import common.validator.TrainFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -44,13 +45,22 @@ public class TrainsController {
     @Autowired
     private TrainFormValidator trainFormValidator;
 
+    @Autowired
+    private SearchFormValidator searchFormValidator;
+
     @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.setValidator(trainFormValidator);
+    protected void initTrainBinder(WebDataBinder binder) {
+        List<Validator> validatorList = new LinkedList<>();
+        validatorList.add(trainFormValidator);
+        validatorList.add(searchFormValidator);
+        for (Validator validator : validatorList) {
+            if (validator.supports(binder.getTarget().getClass()) && !validator.getClass().getName().contains("org.springframework")){
+                binder.addValidators(validator);
+            }
+        }
     }
 
     @GetMapping(value = "/allTrains")
-    @Transactional
     public String showAllTrains(Model model) {
 
         List<TrainDTO> trainDTOList = new LinkedList<>();
@@ -77,7 +87,7 @@ public class TrainsController {
     }
 
     @GetMapping(value = "/trains/searchResult")
-    public String searchResult(@ModelAttribute("searchTrainFragment") SearchDTO searchDTO, Model model){
+    public String searchResult(@ModelAttribute("searchTrainFragment") @Validated SearchDTO searchDTO, Model model){
 
         List<TrainDTO> trainDTOList = trainsService.findSuitableTrains(searchDTO);
 
