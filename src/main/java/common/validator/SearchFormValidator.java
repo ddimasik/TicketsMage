@@ -22,7 +22,6 @@ public class SearchFormValidator implements Validator {
 
         SearchDTO searchDTO = (SearchDTO) target;
 
-
         if (searchDTO.getStartDateTime() == "" ){
             logger.debug("Empty start time");
             errors.rejectValue("startDateTime", "empty.start.datetime");

@@ -1,11 +1,8 @@
 package common.controller;
 
-import common.dto.PassengerDTO;
 import common.dto.SearchDTO;
 import common.dto.TrainDTO;
-import common.repository.TrainsRepository;
 import common.service.StationService;
-import common.service.TicketService;
 import common.service.TrainsService;
 import common.validator.SearchFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +30,6 @@ public class SearchController {
 
     @Autowired
     private SearchFormValidator searchFormValidator;
-
-    @Autowired
-    private TicketService ticketService;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {

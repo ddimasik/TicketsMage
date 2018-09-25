@@ -3,7 +3,6 @@ package common.controller;
 import common.dto.PassengerDTO;
 import common.dto.SearchDTO;
 import common.dto.TicketDTO;
-import common.service.PassengerService;
 import common.service.StationService;
 import common.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class TicketsController {
+
+    private static final String TICKET_ID = "ticketId";
+    private static final String PASSENGER_DTO = "PassengerDTO";
+    private static final String FRAGMENTS_BOOK_TICKET_FRAGMENT = "fragments/bookTicketFragment";
+    private static final String DANGER = "danger";
+
 
     @Autowired
     private TicketService ticketService;
@@ -32,11 +37,11 @@ public class TicketsController {
 
         if (bookingResult != -1){
             model.addAttribute("msg", "");
-            model.addAttribute("ticketId", bookingResult);
-            model.addAttribute("PassengerDTO", new PassengerDTO());
-            return "fragments/bookTicketFragment";
+            model.addAttribute(TICKET_ID, bookingResult);
+            model.addAttribute(PASSENGER_DTO, new PassengerDTO());
+            return FRAGMENTS_BOOK_TICKET_FRAGMENT;
         } else {
-            model.addAttribute("css", "danger");
+            model.addAttribute("css", DANGER);
             model.addAttribute("msg", "No available tickets, try changing search, please.");
             model.addAttribute("searchTrainFragment", new SearchDTO());
             model.addAttribute("stations",stationService.findAll());
@@ -50,11 +55,11 @@ public class TicketsController {
         if (passengerDTO.getName().isEmpty()
             || passengerDTO.getSurname().isEmpty()
             || passengerDTO.getBirthday().toString().isEmpty()){
-            model.addAttribute("css", "danger");
+            model.addAttribute("css", DANGER);
             model.addAttribute("msg", "Fill all fields");
-            model.addAttribute("ticketId", passengerDTO.getTicketId());
-            model.addAttribute("PassengerDTO", passengerDTO);
-            return "fragments/bookTicketFragment";
+            model.addAttribute(TICKET_ID, passengerDTO.getTicketId());
+            model.addAttribute(PASSENGER_DTO, passengerDTO);
+            return FRAGMENTS_BOOK_TICKET_FRAGMENT;
         }
 
 
@@ -64,16 +69,16 @@ public class TicketsController {
             return "fragments/ticketPaperFragment";
 
         } else {
-            model.addAttribute("css", "danger");
+            model.addAttribute("css", DANGER);
             model.addAttribute("msg", "This passenger is already on the train. Enter another data, please.");
-            model.addAttribute("ticketId", passengerDTO.getTicketId());
-            model.addAttribute("PassengerDTO", passengerDTO);
-            return "fragments/bookTicketFragment";
+            model.addAttribute(TICKET_ID, passengerDTO.getTicketId());
+            model.addAttribute(PASSENGER_DTO, passengerDTO);
+            return FRAGMENTS_BOOK_TICKET_FRAGMENT;
         }
     }
 
     @PostMapping(value = "/trains/cancelTicket")
-    public String cancelTicket(@ModelAttribute("cancelTicket") Model model, @PathVariable("ticketId") int ticketId){
+    public String cancelTicket(@ModelAttribute("cancelTicket") Model model, @PathVariable(TICKET_ID) int ticketId){
 
         return "fragments/cancelPaper";
     }
