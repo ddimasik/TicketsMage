@@ -35,11 +35,14 @@
             <input name="birthday" required type="date" value="${PassengerDTO.birthday}">
         </div>
         <div>
-            <input name="ticketId"  value="${ticketId}">
+            <input name="ticketId" hidden value="${ticketId}">
         </div>
-        <input type="submit" value="Buy ticket" >
+        <input type="submit" value="Buy ticket" class="btn-lg btn-primary">
     </form:form>
 </div>
+
+
+<jsp:include page="../fragments/footer.jsp" />
 
 <script
         src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

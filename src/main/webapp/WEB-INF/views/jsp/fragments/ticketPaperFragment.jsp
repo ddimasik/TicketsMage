@@ -9,7 +9,7 @@
 <jsp:include page="header.jsp" />
 
 <div class="container">
-    <h2>Ticket</h2>
+    <h2>Here is your ticket!</h2>
         <div>
             <label>Ticket ID</label><div>${ticketDTO.id}</div>
         </div>
@@ -26,6 +26,8 @@
             <label>endStationId</label><div>${ticketDTO.endStationId}</div>
         </div>
 </div>
+
+<jsp:include page="../fragments/footer.jsp" />
 
 <script
         src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
